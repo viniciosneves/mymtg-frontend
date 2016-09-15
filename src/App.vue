@@ -1,6 +1,5 @@
 <template>
   <div id='app'>
-  <slot></slot>
   <topbar></topbar>
     <div class="container-fluid">
       <div class="row">
@@ -12,20 +11,34 @@
           <div class="conteudo">
               <router-view></router-view>
           </div>
+          
+          <button @click="showNow" >Show Toast</button>
     </div>
-        
+           <vue-toast v-ref:toast></vue-toast>
    </div>
+
 </template>
 
 <script>
+import 'vue-toast/dist/vue-toast.min.css'
 import topbar from './common/components/topbar'
 import sidebar from './common/components/sidebar'
 import Vue from 'vue'
+import VueToast from 'vue-toast'
+import Toaster from './common/components/notification/toast/Toaster'
 
 export default Vue.component('App', {
+  ready: function () {
+  },
   components: {
     topbar,
-    sidebar
+    sidebar,
+    VueToast
+  },
+  methods: {
+    showNow: function () {
+      new Toaster(this).error('AHAHAHA')
+    }
   }
 })
 

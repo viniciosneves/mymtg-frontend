@@ -11,8 +11,10 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "babel-runtime": "^6.0.0",
     "vue": "^1.0.21",
-    "babel-runtime": "^6.0.0"
+    "vue-toast": "^2.0.3",
+    "jquery": "^3.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
@@ -38,7 +40,6 @@
     "function-bind": "^1.0.2",
     "html-webpack-plugin": "^2.8.1",
     "http-proxy-middleware": "^0.12.0",
-    "jquery": "^3.1.0",
     "json-loader": "^0.5.4",
     "ora": "^0.2.0",
     "shelljs": "^0.6.0",
