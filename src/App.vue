@@ -1,64 +1,67 @@
 <template>
-  <div id="app">
-    <img class="logo" src="./assets/logo.png">
-    <hello></hello>
-    <p>
-      Welcome to your Vue.js app!
-    </p>
-    <p>
-      To get a better understanding of how this boilerplate works, check out
-      <a href="http://vuejs-templates.github.io/webpack" target="_blank">its documentation</a>.
-      It is also recommended to go through the docs for
-      <a href="http://webpack.github.io/" target="_blank">Webpack</a> and
-      <a href="http://vuejs.github.io/vue-loader/" target="_blank">vue-loader</a>.
-      If you have any issues with the setup, please file an issue at this boilerplate's
-      <a href="https://github.com/vuejs-templates/webpack" target="_blank">repository</a>.
-    </p>
-    <p>
-      You may also want to checkout
-      <a href="https://github.com/vuejs/vue-router/" target="_blank">vue-router</a> for routing and
-      <a href="https://github.com/vuejs/vuex/" target="_blank">vuex</a> for state management.
-    </p>
-  </div>
+  <div id='app'>
+  <slot></slot>
+  <topbar></topbar>
+    <div class="container-fluid">
+      <div class="row">
+       <sidebar></sidebar>
+      </div>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+             <!-- use router-view element as route outlet -->
+          <div class="conteudo">
+              <router-view></router-view>
+          </div>
+    </div>
+        
+   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import topbar from './common/components/topbar'
+import sidebar from './common/components/sidebar'
+import Vue from 'vue'
 
-export default {
+export default Vue.component('App', {
   components: {
-    Hello
+    topbar,
+    sidebar
   }
-}
+})
+
 </script>
 
 <style>
-html {
-  height: 100%;
+
+.conteudo {
+  margin: 60px;
+  /*border: 1px solid black;*/
 }
 
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+  padding-top: 50px;
 }
 
-#app {
-  color: #2c3e50;
-  margin-top: -100px;
-  max-width: 600px;
-  font-family: Source Sans Pro, Helvetica, sans-serif;
-  text-align: center;
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-#app a {
-  color: #42b983;
-  text-decoration: none;
-}
-
-.logo {
-  width: 100px;
-  height: 100px
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
 }
 </style>
