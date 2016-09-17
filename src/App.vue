@@ -8,11 +8,9 @@
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
              <!-- use router-view element as route outlet -->
-          <div class="conteudo">
+          <div class="content">
               <router-view></router-view>
           </div>
-          
-          <button @click="showNow" >Show Toast</button>
     </div>
            <vue-toast v-ref:toast></vue-toast>
    </div>
@@ -25,7 +23,6 @@ import topbar from './common/components/topbar'
 import sidebar from './common/components/sidebar'
 import Vue from 'vue'
 import VueToast from 'vue-toast'
-import Toaster from './common/components/notification/toast/Toaster'
 
 export default Vue.component('App', {
   ready: function () {
@@ -36,9 +33,6 @@ export default Vue.component('App', {
     VueToast
   },
   methods: {
-    showNow: function () {
-      new Toaster(this).error('AHAHAHA')
-    }
   }
 })
 
@@ -46,8 +40,8 @@ export default Vue.component('App', {
 
 <style>
 
-.conteudo {
-  margin: 60px;
+.content {
+  margin-left: 60px;
   /*border: 1px solid black;*/
 }
 
