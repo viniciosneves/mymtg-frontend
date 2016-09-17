@@ -3,9 +3,13 @@ import $ from 'jquery'
 import mask from 'jquery-mask-plugin'
 
 /**
-* chars used to mask :
+* chars used to raw mask :
 * 0 - for numeric
 * A - for alphabetical and numerical
+* 9 - numeric optional
+* S - alphabetic char
+* modifiers to use :
+* clear: to clean the input if not match the mask
 */
 export default Vue.directive('mask', {
 
@@ -22,7 +26,7 @@ export default Vue.directive('mask', {
     if (typeof expression === 'object') {
       this.maskConfig = expression
     } else {
-      this.maskConfig = this.doConfig(expression)
+      this.maskConfig = this.doConfig()
     }
 
     if (this.maskConfig.raw) {
@@ -32,15 +36,15 @@ export default Vue.directive('mask', {
     }
   },
 
-  doConfig: (expression) => {
-    if (this.maskTypes.contains(expression)) {
+  doConfig: function () {
+    if (Object.keys(this.maskTypes).indexOf(this.expression) !== -1) {
       return {
-        type: expression
+        type: this.expression
       }
     }
 
     return {
-      raw: expression
+      raw: this.expression
     }
   },
 
@@ -57,15 +61,19 @@ export default Vue.directive('mask', {
   },
 
   maskTypes: {
-    currency: (directive) => {
+    currency: function (directive) {
       directive.applyMask('#.##0,00', {
         reverse: true
       })
+    },
+    date: function (directive) {
+      let timeMask = directive.modifiers.time ? ' 00:00:00' : ''
+
+      directive.applyMask(`00/00/0000${timeMask}`)
+    },
+    phone: function (directive) {
+      directive.applyMask('(00) 0000-00009')
     }
-    // 'date',
-    // 'phone',
-    // 'ip',
-    // 'data_hour'
   },
 
   applyMask: function (maskValue, extraOptions) {
@@ -73,7 +81,7 @@ export default Vue.directive('mask', {
   },
 
   getPluginOptions: function (extraOptions) {
-    return Object.assign({
+    return Object.assign(extraOptions || {}, {
       translation: {
         '0': {pattern: /\d/},
         '9': {pattern: /\d/, optional: true},
@@ -81,8 +89,9 @@ export default Vue.directive('mask', {
         'A': {pattern: /[a-zA-Z0-9]/},
         'S': {pattern: /[a-zA-Z]/}
       },
-      reverse: this.modifiers.reverse
-    }, extraOptions || {})
+      clearIfNotMatch: this.modifiers.clear
+
+    })
   }
 
 })
