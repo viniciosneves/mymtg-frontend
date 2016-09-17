@@ -2,6 +2,7 @@
   <div>
     <h2>Artists</h2>
   </div>
+  <input type='text' v-model='date' v-mask="{ type: 'currency' }" >
   <table class="table table-bordered">
   <thead>
     <th>Name</th>
@@ -21,6 +22,11 @@
 
 <script>
   export default {
+    data () {
+      return {
+        date: ''
+      }
+    }
   }
 </script>
 

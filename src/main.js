@@ -3,7 +3,11 @@ import App from './App'
 import VueRouter from 'vue-router'
 import cardRoutes from './modules/cards/routes'
 import globalRoutes from './modules/global/routes'
-
+import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
+// import './assets/sass/Main.scss'
+// import 'jquery/dist/jquery.js'
+import 'vue-toast/dist/vue-toast.min.css'
+import './common/directives/Directives'
 Vue.use(VueRouter)
 
     /* eslint-disable no-new */

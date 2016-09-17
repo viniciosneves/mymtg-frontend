@@ -57,7 +57,6 @@ export default Vue.component('App', {
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
 }
 
 
