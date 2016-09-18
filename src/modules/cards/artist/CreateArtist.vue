@@ -1,6 +1,6 @@
 <template>
   <h1>New Artist</h1>
-  <artistform></artistform>
+  <artistform entity-id="2"></artistform>
 </template>
 
 <script>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
+import vueResource from 'vue-resource'
 import cardRoutes from './modules/cards/routes'
 import globalRoutes from './modules/global/routes'
 import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
@@ -9,8 +10,8 @@ import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
 import 'vue-toast/dist/vue-toast.min.css'
 import './common/directives/Directives'
 Vue.use(VueRouter)
-
-    /* eslint-disable no-new */
+Vue.use(vueResource)
+/* eslint-disable no-new */
 // new Vue({
 //   el: 'body',
 //   components: { App }
