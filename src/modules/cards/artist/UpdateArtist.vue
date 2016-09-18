@@ -1,6 +1,6 @@
 <template>
-  <h1>New Artist</h1>
-  <artistform @created="artistCreated"></artistform>
+  <h1>Update Artist</h1>
+  <artistform @updated="artistUpdated"></artistform>
 </template>
 
 <script>
@@ -13,9 +13,9 @@ export default {
     artistform
   },
   methods: {
-    artistCreated: function (response) {
-      toast.success('Artist created!')
-      this.$dispatch('finished', 'index')
+    artistUpdated: function (response) {
+      toast.success('Artist updated!')
+      this.$dispatch('finished')
     }
   }
 }

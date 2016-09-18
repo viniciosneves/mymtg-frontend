@@ -7,10 +7,15 @@ export default {
     component: Menu
   },
   '/cards/artist': {
-    component: MainArtist
+    component: MainArtist,
+    name: 'mainartist'
   },
   '/cards/artist/new': {
     component: CreateArtist,
     name: 'createartist'
+  },
+  '/cards/artist/update/:artist-id': {
+    component: CreateArtist,
+    name: 'updateartist'
   }
 }

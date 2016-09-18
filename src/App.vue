@@ -11,31 +11,22 @@
           <div class="content">
               <router-view></router-view>
           </div>
-   <button @click="showToast">Toast Now!</button>
     </div>
-           <vue-toast v-ref:toast></vue-toast>
    </div>
 </template>
 
 <script>
-import 'vue-toast/dist/vue-toast.min.css'
 import topbar from './common/components/topbar'
 import sidebar from './common/components/sidebar'
 import Vue from 'vue'
-import VueToast from 'vue-toast'
-import Toaster from './common/components/notification/toast/Toaster'
 export default Vue.component('App', {
   ready: function () {
   },
   components: {
     topbar,
-    sidebar,
-    VueToast
+    sidebar
   },
   methods: {
-    showToast: function () {
-      Toaster.success('OKOK', { title: 'MAN MAN', closeButton: true })
-    }
   }
 })
 
