@@ -9,6 +9,9 @@ import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
 // import 'jquery/dist/jquery.js'
 import 'vue-toast/dist/vue-toast.min.css'
 import './common/directives/Directives'
+import VueValidator from 'vue-validator'
+
+Vue.use(VueValidator)
 Vue.use(VueRouter)
 Vue.use(vueResource)
 /* eslint-disable no-new */

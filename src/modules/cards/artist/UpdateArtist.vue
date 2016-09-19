@@ -1,6 +1,6 @@
 <template>
   <h1>Update Artist</h1>
-  <artistform @updated="artistUpdated"></artistform>
+  <artistform @finish="artistUpdated"></artistform>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <h1>New Artist</h1>
-  <artistform @created="artistCreated"></artistform>
+  <artistform @finish="artistCreated" @finish-error="onError"></artistform>
 </template>
 
 <script>
@@ -15,7 +15,11 @@ export default {
   methods: {
     artistCreated: function (response) {
       toast.success('Artist created!')
-      this.$dispatch('finished', 'index')
+      this.$dispatch('finished')
+    },
+    onError: function (response) {
+      console.log(response.response)
+      toast.error(response.response.errors.title, response.response.errors.exception_name)
     }
   }
 }

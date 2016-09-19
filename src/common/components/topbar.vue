@@ -37,7 +37,6 @@
 
     methods: {
       search: function (e) {
-        e.preventDefault()
         this.query = ''
         window.alert('searching not implemented yet...')
       }

@@ -17,7 +17,6 @@ export default {
 </script>
 
 <style>
-
 .menu .btn {
   padding: 60px;
   margin-left: 30px;
