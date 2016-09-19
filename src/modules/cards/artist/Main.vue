@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h2>Artists</h2>
+    <h1>Artists</h1>
   </div>
-  <button class="btn btn-default" @click="status = 'index'" v-if="status !== 'index'" >show all</button>
-  <div v-if="status === 'index'">
+  <button class="btn btn-default" @click="state = 'index'" v-if="state !== 'index'" >show all</button>
+  <div v-if="state === 'index'">
       <input type="text" v-model="artistQuery">
      <table class="table table-bordered">
   <thead>
@@ -19,50 +19,99 @@
       <td>{{ artist.name }}</td>
       <td>{{ artist.created_at }}</td>
       <td>{{ artist.updated_at }}</td>
-      <td><a @click="editArtist(artist)" class="btn btn-warning btn-block">Edit</a></td>
-      <td><a class="btn btn-danger btn-block">Remove</a></td>
+      <td><a @click="updateArtist(artist)" class="btn btn-warning btn-block">Edit</a></td>
+      <td><a @click="deleteArtist(artist)" class="btn btn-danger btn-block">Remove</a></td>
     </tr>
   </tbody>
   </table>
   </div>
- 
-  <create-artist @finished="actionFinished" v-if="status === 'create'"></create-artist>
+  <artist-form :artist="selectedArtist"  v-if="state !== 'index'" @submited="onArtistFormSubmited"></artist-form>
+  <pre>{{ $data | json}}</pre>
 </template>
 
 
 <script>
   import JsonRequest from 'src/common/api/JsonRequest'
-  import createArtist from './CreateArtist'
+  import ArtistForm from './ArtistForm'
+  import { toast } from 'src/common/components/notification/toast/Toast'
   export default {
     ready: function () {
-      this.jsonRequest = new JsonRequest()
-      this.reloadArtist()
+      this.apiModel = new JsonRequest()
+      this.loadArtists()
     },
     components: {
-      createArtist
+      ArtistForm
     },
     data () {
       return {
         artists: [],
-        status: 'index',
+        state: 'index',
+        selectedArtist: null,
         artistQuery: ''
       }
     },
     methods: {
-      editArtist: function (artist) {
-        console.log(artist)
+      updateArtist: function (artist) {
+        this.selectedArtist = artist
+        this.state = 'update'
       },
+
       newArtist: function () {
-        this.status = 'create'
+        this.state = 'create'
       },
+
       actionFinished: function () {
-        this.status = 'index'
-        this.reloadArtist()
+        this.state = 'index'
+        this.loadArtists()
       },
-      reloadArtist: function () {
-        this.jsonRequest.get('artist').then((response) => {
+
+      onArtistFormSubmited: function (artist) {
+        // updating
+        if (artist && artist.id) {
+          console.log('updating artist', artist)
+          this.update(artist)
+        } else if (artist) {
+          console.log('creating artist', artist)
+          this.create(artist)
+        }
+      },
+
+      loadArtists: function () {
+        this.apiModel.get('artist').then((response) => {
           this.$data.artists = response.data
+          this.state = 'index'
         })
+      },
+
+      create: function (artist) {
+        this.apiModel.post('artist', artist).then(this.created, this.fail)
+      },
+
+      update: function (artist) {
+        this.apiModel.put(`artist/${artist.id}`, artist).then(this.updated, this.fail)
+      },
+
+      deleteArtist: function (artist) {
+        this.apiModel.delete(`artist/${artist.id}`, artist).then(this.deleted, this.fail)
+      },
+
+      created: function (response) {
+        toast.success('Artist created!')
+        this.loadArtists()
+      },
+
+      updated: function (response) {
+        toast.success('Artist updated!')
+        this.loadArtists()
+      },
+
+      deleted: function (response) {
+        toast.success('Artist updated!')
+        this.loadArtists()
+      },
+
+      fail: function (response) {
+        toast.error(response.response.errors.title, response.response.errors.exception_name)
       }
     }
   }
