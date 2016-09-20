@@ -8,7 +8,7 @@
   </div>
   <div :class=" dirty ? 'has-error' : ''" class="form-group">
     <label  class="control-label" for="name">Name:</label>
-    <input  class="form-control input-lg"  v-validate:name="['required']" v-model="name" class="form-control"  placeholder="Name">
+    <input class="form-control input-lg"  v-validate:name="['required']" v-model="name" class="form-control"  placeholder="Name">
     <span class="error help-block" v-if="dirty">Required Field</span>
   </div>
   <button type="submit" class="btn btn-default" @click.prevent="submit">{{ updating ? 'Update' : 'Create' }}</button>
