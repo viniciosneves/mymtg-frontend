@@ -11,6 +11,10 @@
     <input class="form-control input-lg"  v-validate:name="['required']" v-model="name" class="form-control"  placeholder="Name">
     <span class="error help-block" v-if="dirty">Required Field</span>
   </div>
+  <div class="form-group">
+    <label  class="control-label" for="phone">Phone:</label>
+    <input class="form-control input-lg" v-mask.clear="phone" v-model="phone" class="form-control"  placeholder="Phone">
+  </div>
   <button type="submit" class="btn btn-default" @click.prevent="submit">{{ updating ? 'Update' : 'Create' }}</button>
 </form>
 </validator>
@@ -29,7 +33,8 @@ export default {
   data: function () {
     return {
       id: undefined,
-      name: ''
+      name: '',
+      phone: ''
     }
   },
 

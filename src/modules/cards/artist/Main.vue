@@ -9,6 +9,7 @@
   <thead>
     <th>Id</th>
     <th>Name</th>
+    <th>Phone</th>
     <th>Created at</th>
     <th>Updated at</th>
     <th colspan="2"><a class="btn btn-default btn-block" @click="newArtist" >New Artist</a></th>
@@ -17,6 +18,7 @@
     <tr @dblclick="updateArtist(artist)" v-for="artist in artists | filterBy artistQuery">
       <td>{{ artist.id }}</td>
       <td>{{ artist.name }}</td>
+      <td>{{ artist.phone }}</td>
       <td>{{ artist.created_at }}</td>
       <td>{{ artist.updated_at }}</td>
       <td><a @click="updateArtist(artist)" class="btn btn-warning btn-block">Edit</a></td>
