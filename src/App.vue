@@ -1,6 +1,6 @@
 <template>
   <div id='app'>
-  <topbar></topbar>
+  <topbar @topbarsearch="onTopBarSearch"></topbar>
     <div class="container-fluid">
       <div class="row">
        <sidebar></sidebar>
@@ -27,6 +27,10 @@ export default Vue.component('App', {
     sidebar
   },
   methods: {
+    onTopBarSearch: function (query) {
+      console.log('APP-QUERY:', query)
+      this.$broadcast('appsearch', query)
+    }
   }
 })
 

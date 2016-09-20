@@ -18,7 +18,17 @@
             <li><a href="#">Help</a></li>
           </ul>
           <form @submit.prevent="search" class="navbar-form navbar-right">
-            <input type="text" v-model="query" class="form-control" placeholder="Search...">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="input-group">
+                <input v-model="query" type="text" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                  <!-- <button type="submit" class="btn btn-default" type="button">Go!</button> -->
+                  <button @click="cleanQuery" class="btn btn-default" type="button">Clean!</button>
+                </span>
+              </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+          </div><!-- /.row -->
           </form>
         </div>
       </div>
@@ -37,8 +47,11 @@
 
     methods: {
       search: function (e) {
+        this.$dispatch('topbarsearch', this.query)
+      },
+      cleanQuery: function (e) {
         this.query = ''
-        window.alert('searching not implemented yet...')
+        this.$dispatch('topbarsearch', this.query)
       }
     }
 

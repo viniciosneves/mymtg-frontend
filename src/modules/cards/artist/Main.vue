@@ -4,7 +4,7 @@
   </div>
   <button class="btn btn-default" @click="state = 'index'" v-if="state !== 'index'" >show all</button>
   <div v-if="state === 'index'">
-      <input type="text" v-model="artistQuery">
+      <!-- <input type="text" v-model="artistQuery"> -->
      <table class="table table-bordered">
   <thead>
     <th>Id</th>
@@ -14,7 +14,7 @@
     <th colspan="2"><a class="btn btn-default btn-block" @click="newArtist" >New Artist</a></th>
   </thead>
   <tbody>
-    <tr  v-for="artist in artists | filterBy artistQuery">
+    <tr @dblclick="updateArtist(artist)" v-for="artist in artists | filterBy artistQuery">
       <td>{{ artist.id }}</td>
       <td>{{ artist.name }}</td>
       <td>{{ artist.created_at }}</td>
@@ -26,7 +26,7 @@
   </table>
   </div>
   <artist-form :artist="selectedArtist"  v-if="state !== 'index'" @submited="onArtistFormSubmited"></artist-form>
-  <pre>{{ $data | json}}</pre>
+  <!-- <pre>{{ $data | json}}</pre> -->
 </template>
 
 
@@ -41,6 +41,12 @@
     },
     components: {
       ArtistForm
+    },
+    events: {
+      'appsearch': function (query) {
+        this.state = 'index'
+        this.artistQuery = query
+      }
     },
     data () {
       return {
@@ -57,6 +63,7 @@
       },
 
       newArtist: function () {
+        this.selectedArtist = null
         this.state = 'create'
       },
 
@@ -106,12 +113,12 @@
       },
 
       deleted: function (response) {
-        toast.success('Artist updated!')
+        toast.success('Artist removed!')
         this.loadArtists()
       },
 
       fail: function (response) {
-        toast.error(response.response.errors.title, response.response.errors.exception_name)
+        toast.error(response.responseJSON.errors.title, response.responseJSON.errors.exception_name)
       }
     }
   }

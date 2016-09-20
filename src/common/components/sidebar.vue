@@ -12,8 +12,14 @@
 <script>
     export default {
       ready: function () {
+      },
+      events: {
+        'appsearch': function (query) {
+          console.log('sidebar is listening too')
+        }
+
       }
-    }
+}
 </script>
 
 <style>
