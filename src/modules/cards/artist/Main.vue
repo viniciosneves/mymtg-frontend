@@ -2,8 +2,7 @@
   <div>
     <h1>Artists</h1>
   </div>
-  <button class="btn btn-default" @click="state = 'index'" v-if="state !== 'index'" >show all</button>
-  <div v-if="state === 'index'">
+  <div v-if="state.index">
       <!-- <input type="text" v-model="artistQuery"> -->
      <table class="table table-bordered">
   <thead>
@@ -27,7 +26,10 @@
   </tbody>
   </table>
   </div>
-  <artist-form :artist="selectedArtist"  v-if="state !== 'index'" @submited="onArtistFormSubmited"></artist-form>
+  <artist-form :artist="selectedArtist"
+               v-if="!state.index"
+               @submited="onArtistFormSubmited"
+               @back="onBack"></artist-form>
   <!-- <pre>{{ $data | json}}</pre> -->
 </template>
 
@@ -35,6 +37,7 @@
 <script>
   import JsonRequest from 'src/common/api/JsonRequest'
   import ArtistForm from './ArtistForm'
+  import CrudStateManager from './CrudStateManager'
   import { toast } from 'src/common/components/notification/toast/Toast'
   export default {
     ready: function () {
@@ -46,14 +49,14 @@
     },
     events: {
       'appsearch': function (query) {
-        this.state = 'index'
+        this.state.setIndex()
         this.artistQuery = query
       }
     },
     data () {
       return {
         artists: [],
-        state: 'index',
+        state: new CrudStateManager(),
         selectedArtist: null,
         artistQuery: ''
       }
@@ -61,16 +64,15 @@
     methods: {
       updateArtist: function (artist) {
         this.selectedArtist = artist
-        this.state = 'update'
+        this.state.setUpdate()
       },
 
       newArtist: function () {
         this.selectedArtist = null
-        this.state = 'create'
+        this.state.setCreate()
       },
 
       actionFinished: function () {
-        this.state = 'index'
         this.loadArtists()
       },
 
@@ -85,10 +87,14 @@
         }
       },
 
+      onBack: function (e) {
+        this.state.setIndex()
+      },
+
       loadArtists: function () {
         this.apiModel.get('artist').then((response) => {
           this.$data.artists = response.data
-          this.state = 'index'
+          this.state.setIndex()
         })
       },
 

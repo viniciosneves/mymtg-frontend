@@ -16,6 +16,7 @@
     <input class="form-control input-lg" v-mask.clear="phone" v-model="phone" class="form-control"  placeholder="Phone">
   </div>
   <button type="submit" class="btn btn-default" @click.prevent="submit">{{ updating ? 'Update' : 'Create' }}</button>
+  <button type="submit" class="btn btn-default" @click.prevent="back">Back to List</button>
 </form>
 </validator>
 <!-- <pre>{{ $data | json}}</pre> -->
@@ -59,6 +60,9 @@ export default {
       } else {
         this.$artistValidation.name.dirty = true
       }
+    },
+    back: function (e) {
+      this.$dispatch('back', this.$data)
     }
   },
   ready: function () {
