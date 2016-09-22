@@ -1,7 +1,8 @@
 <template>
-<h2>{{ updating ? 'Update' : 'Create New' }} Artist</h2>
 <validator name="artistValidation">
-  <form>
+  <my-mtg-simple-form :form-data="$data"
+                      :title="title"
+                      @submited="submit">
    <div v-show="updating" class="form-group">
     <label  class="control-label" for="id">ID:</label>
     <input class="form-control input-sm" disabled="disabled" v-model="id"/>
@@ -15,22 +16,23 @@
     <label  class="control-label" for="phone">Phone:</label>
     <input class="form-control input-lg" v-mask.clear="phone" v-model="phone" class="form-control"  placeholder="Phone">
   </div>
-  <button type="submit" class="btn btn-default" @click.prevent="submit">{{ updating ? 'Update' : 'Create' }}</button>
-  <button type="submit" class="btn btn-default" @click.prevent="back">Back to List</button>
-</form>
+  </my-mtg-simple-form>
 </validator>
 <!-- <pre>{{ $data | json}}</pre> -->
 </template>
 
 <script>
 import JsonRequest from 'src/common/api/JsonRequest'
+import MyMtgSimpleForm from 'src/common/components/form/MyMtgSimpleForm'
 export default {
   props: [
     {
       name: 'artist'
     }
   ],
-
+  components: {
+    MyMtgSimpleForm
+  },
   data: function () {
     return {
       id: undefined,
@@ -48,21 +50,17 @@ export default {
     },
     dirty: function () {
       return this.$artistValidation.name.required && this.$artistValidation.name.dirty
+    },
+    title: function () {
+      return this.updating ? 'Update Artist' : 'Create New Artist'
     }
   },
 
   methods: {
-
     submit: function (e) {
-      if (this.$artistValidation.valid) {
-        console.log('artist submited')
-        this.$dispatch('submited', this.$data)
-      } else {
+      if (this.$artistValidation.invalid) {
         this.$artistValidation.name.dirty = true
       }
-    },
-    back: function (e) {
-      this.$dispatch('back', this.$data)
     }
   },
   ready: function () {
