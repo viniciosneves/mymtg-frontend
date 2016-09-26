@@ -2,13 +2,13 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import vueResource from 'vue-resource'
-import cardRoutes from './modules/cards/routes'
-import globalRoutes from './modules/global/routes'
 import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
 import 'vue-toast/dist/vue-toast.min.css'
 import './common/directives/Directives'
-import VueValidator from 'vue-validator'
-Vue.use(VueValidator)
+import './common/validators/Validators'
+
+import cardRoutes from './modules/cards/routes'
+import globalRoutes from './modules/global/routes'
 Vue.use(VueRouter)
 Vue.use(vueResource)
 

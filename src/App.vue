@@ -20,7 +20,7 @@ import topbar from './common/components/topbar'
 import sidebar from './common/components/sidebar'
 import Vue from 'vue'
 export default Vue.component('App', {
-  ready: function () {
+  created: function () {
   },
   components: {
     topbar,
@@ -28,7 +28,6 @@ export default Vue.component('App', {
   },
   methods: {
     onTopBarSearch: function (query) {
-      console.log('APP-QUERY:', query)
       this.$broadcast('appsearch', query)
     }
   }

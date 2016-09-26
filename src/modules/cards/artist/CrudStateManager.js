@@ -8,7 +8,7 @@ class CrudStateManager {
       delete: false
     }
 
-    this._changeState(initialState)
+    this.changeState(initialState)
   }
 
   get index () {
@@ -28,22 +28,22 @@ class CrudStateManager {
   }
 
   setIndex () {
-    this._changeState('index')
+    this.changeState('index')
   }
 
   setCreate () {
-    this._changeState('create')
+    this.changeState('create')
   }
 
   setUpdate () {
-    this._changeState('update')
+    this.changeState('update')
   }
 
   setDelete () {
-    this._changeState('delete')
+    this.changeState('delete')
   }
 
-  _changeState (state) {
+  changeState (state) {
     if (!Object.keys(this._states).includes(state)) {
       throw new Error('CrudState not valid!')
     }

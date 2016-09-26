@@ -1,73 +1,88 @@
 <template>
-<validator name="artistValidation">
-  <my-mtg-simple-form :form-data="$data"
-                      :title="title"
-                      @submited="submit">
-   <div v-show="updating" class="form-group">
-    <label  class="control-label" for="id">ID:</label>
-    <input class="form-control input-sm" disabled="disabled" v-model="id"/>
-  </div>
-  <div :class=" dirty ? 'has-error' : ''" class="form-group">
-    <label  class="control-label" for="name">Name:</label>
-    <input class="form-control input-lg"  v-validate:name="['required']" v-model="name" class="form-control"  placeholder="Name">
-    <span class="error help-block" v-if="dirty">Required Field</span>
-  </div>
-  <div class="form-group">
-    <label  class="control-label" for="phone">Phone:</label>
-    <input class="form-control input-lg" v-mask.clear="phone" v-model="phone" class="form-control"  placeholder="Phone">
-  </div>
-  </my-mtg-simple-form>
-</validator>
+<validator name="validation">
+<form>
+<h1>{{ title }}</h1>
+  <mymtg-field label="ID" v-if="updating">
+    <input class="form-control input-sm" disabled="disabled" v-model="artist.id"/>
+  </mymtg-field>
+  <mymtg-field label="Name" :validator="$validation.name">
+    <input initial="off" class="form-control input-lg"  v-validate:name="['required']" v-model="artist.name" placeholder="Name">
+  </mymtg-field>
+  <mymtg-action reset="off" @backed="backed" @submitted="submit"></mymtg-action>
+</form>
+  </validator>
 <!-- <pre>{{ $data | json}}</pre> -->
 </template>
 
 <script>
 import JsonRequest from 'src/common/api/JsonRequest'
-import MyMtgSimpleForm from 'src/common/components/form/MyMtgSimpleForm'
+import MymtgField from 'src/common/components/form/MymtgField'
+import MymtgAction from 'src/common/components/form/MymtgAction'
+import { toast } from 'src/common/components/notification/toast/Toast'
 export default {
   props: [
-    {
-      name: 'artist'
-    }
   ],
   components: {
-    MyMtgSimpleForm
+    MymtgField,
+    MymtgAction
+  },
+  validators: {
   },
   data: function () {
     return {
-      id: undefined,
-      name: '',
-      phone: ''
+      artist: {
+        id: undefined,
+        name: ''
+      }
     }
   },
 
   computed: {
     updating: function () {
-      if (this.artist && this.artist.id) {
+      if (this.$route.params && this.$route.params.id) {
         return true
       }
       return false
     },
-    dirty: function () {
-      return this.$artistValidation.name.required && this.$artistValidation.name.dirty
-    },
     title: function () {
-      return this.updating ? 'Update Artist' : 'Create New Artist'
+      return this.updating ? `Updating Artist - ${this.artist.name}` : 'Create Artist'
     }
   },
-
+  events: {
+  },
   methods: {
     submit: function (e) {
-      if (this.$artistValidation.invalid) {
-        this.$artistValidation.name.dirty = true
+      if (this.$validation.valid) {
+        this.updating ? this.update() : this.create()
       }
+    },
+    backed: function () {
+      this.$route.router.go({ name: 'mainArtist' })
+    },
+    create: function (artist) {
+      this.apiModel.post('artist', this.$data.artist).then(() => {
+        toast.success('Artist Created!')
+        this.$route.router.go(-1)
+      }, this.fail)
+    },
+    update: function (artist) {
+      this.apiModel.put(`artist/${this.artist.id}`, this.$data.artist).then(() => {
+        toast.success('Artist Updated!')
+        this.$route.router.go(-1)
+      }, this.fail)
+    },
+    fail: function (response) {
+      toast.error(response.responseJSON.errors.title, response.responseJSON.errors.exception_name)
     }
   },
-  ready: function () {
+  created: function () {
     this.apiModel = new JsonRequest()
     if (this.updating) {
-      this.apiModel.get(`artist/${this.artist.id}`).then((response) => {
-        this.$data = response.data
+      this.apiModel.get(`artist/${this.$route.params.id}`).then((response) => {
+        this.$data.artist = response.data
+      }, (response) => {
+        this.fail(response)
+        this.$route.router.go(-1)
       })
     }
   }
