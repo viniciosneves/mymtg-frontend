@@ -62,13 +62,13 @@ export default {
     create: function (artist) {
       this.apiModel.post('artist', this.$data.artist).then(() => {
         toast.success('Artist Created!')
-        this.$route.router.go(-1)
+        this.$route.router.go({name: 'mainartist'})
       }, this.fail)
     },
     update: function (artist) {
       this.apiModel.put(`artist/${this.artist.id}`, this.$data.artist).then(() => {
         toast.success('Artist Updated!')
-        this.$route.router.go(-1)
+        this.$route.router.go({name: 'mainartist'})
       }, this.fail)
     },
     fail: function (response) {
@@ -82,7 +82,7 @@ export default {
         this.$data.artist = response.data
       }, (response) => {
         this.fail(response)
-        this.$route.router.go(-1)
+        this.$route.router.go({name: 'mainartist'})
       })
     }
   }

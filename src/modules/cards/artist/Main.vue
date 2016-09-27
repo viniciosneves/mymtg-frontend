@@ -52,7 +52,7 @@
         this.loadArtists(page)
       },
       loadArtists: function (page = this.paginationModel.currentPage) {
-        this.apiModel.get('artist', { page, per_page: 5 }).then((response) => {
+        this.apiModel.get('artist', { page, per_page: 10 }).then((response) => {
           this.$data.artists = response.data.data
           this.$data.paginationModel.update(response.data)
         })
