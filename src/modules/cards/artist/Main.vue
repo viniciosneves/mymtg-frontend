@@ -12,7 +12,7 @@
     <th colspan="2"><a class="btn btn-default btn-block" v-link="{ name: 'createArtist' }" >New Artist</a></th>
   </thead>
   <tbody>
-    <tr @dblclick="$route.router.go({ name: 'updateArtist', params: {id: artist.id }})" v-for="artist in artists">
+    <tr @dblclick="$route.router.go({ name: 'updateArtist', params: {id: artist.id }})" v-for="artist in artists | filterBy artistQuery">
       <td>{{ artist.id }}</td>
       <td>{{ artist.name }}</td>
       <td>{{ artist.created_at }}</td>
@@ -22,7 +22,7 @@
     </tr>
   </tbody>
   </table>
-  <pagination @change="changePage" :model="paginationModel"></pagination>
+  <pagination @change="changePage" :model="paginationModel" ></pagination>
   </div>
   <!-- <pre>{{ $data | json}}</pre> -->
 </template>
@@ -38,13 +38,21 @@
       this.apiModel = new JsonRequest()
       this.loadArtists()
     },
+    events: {
+      'appsearch': function (query) {
+        console.log('appsearch')
+        this.artistQuery = query
+        this.loadArtists()
+      }
+    },
     components: {
       pagination
     },
     data () {
       return {
         artists: [],
-        paginationModel: new PaginationModel()
+        paginationModel: new PaginationModel(),
+        artistQuery: ''
       }
     },
     methods: {
@@ -52,7 +60,7 @@
         this.loadArtists(page)
       },
       loadArtists: function (page = this.paginationModel.currentPage) {
-        this.apiModel.get('artist', { page, per_page: 10 }).then((response) => {
+        this.apiModel.get('artist', { page, per_page: 10, query: this.artistQuery }).then((response) => {
           this.$data.artists = response.data.data
           this.$data.paginationModel.update(response.data)
         })
