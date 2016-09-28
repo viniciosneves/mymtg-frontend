@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import JsonRequest from 'src/common/api/JsonRequest'
+import JsonRequest from 'src/common/http/JsonRequest'
 import MymtgField from 'src/common/components/form/MymtgField'
 import MymtgAction from 'src/common/components/form/MymtgAction'
 import { toast } from 'src/common/components/notification/toast/Toast'

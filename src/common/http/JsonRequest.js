@@ -1,14 +1,13 @@
 import $ from 'jquery'
-import config from 'src/config'
-
+import { serverConfig } from 'src/config'
 class JsonRequest {
 
-  constructor (baseUrl = config.baseUrl) {
+  constructor (baseUrl = serverConfig.baseURL) {
     this.baseUrl = baseUrl
   }
 
-  get (uri, data) {
-    return $.getJSON(this._compileUrl(uri), data)
+  get (uri, data = {}) {
+    return this._send(uri, 'GET', data)
   }
 
   post (uri, data = {}) {
@@ -34,12 +33,13 @@ class JsonRequest {
   }
 
   _send (uri, method = 'POST', data = {}) {
-    return $.ajax({
+    let jQueryPromise = $.ajax({
       method: method,
       url: this._compileUrl(uri),
       data: JSON.stringify(data),
       contentType: 'application/json'
     })
+    return Promise.resolve(jQueryPromise)
   }
 
 }
