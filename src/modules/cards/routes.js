@@ -1,5 +1,5 @@
-import MainArtist from './artist/Main'
-import ArtistForm from './artist/ArtistForm'
+import MainArtist from './artist/components/crud/Main'
+import ArtistForm from './artist/components/crud/ArtistForm'
 import Menu from './Menu'
 
 export default {
