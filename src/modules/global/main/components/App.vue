@@ -16,10 +16,9 @@
 </template>
 
 <script>
-import topbar from './common/components/topbar'
-import sidebar from './common/components/sidebar'
-import Vue from 'vue'
-export default Vue.component('App', {
+import topbar from './Topbar'
+import sidebar from './Sidebar'
+export default {
   created: function () {
   },
   components: {
@@ -31,7 +30,7 @@ export default Vue.component('App', {
       this.$broadcast('appsearch', query)
     }
   }
-})
+}
 
 </script>
 

@@ -1,5 +1,5 @@
-import Dashbord from './dashbord/components/Main'
-import NotFound from './common/components/NotFound'
+import Dashbord from './main/components/Dashbord'
+import NotFound from './main/components/NotFound'
 
 export default {
   '/dashbord': {

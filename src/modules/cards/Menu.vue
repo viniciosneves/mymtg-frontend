@@ -1,6 +1,6 @@
 <template>
   <div class='menu'>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/artist' }">Artists</button>
+    <button class="btn btn-lg btn-primary" v-link="{ name: 'mainArtist' }">Artists</button>
     <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/block' }">Block</button>
     <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/card' }">Card</button>
     <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/color' }">Color</button>
