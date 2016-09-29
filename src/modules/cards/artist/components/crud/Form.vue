@@ -52,9 +52,11 @@ export default {
   },
   methods: {
     submit: function (e) {
-      if (this.$validation.valid) {
-        this.updating ? this.update() : this.create()
-      }
+      this.$validate(true, () => {
+        if (this.$validation.valid) {
+          this.updating ? this.update() : this.create()
+        }
+      })
     },
     backed: function () {
       this.$route.router.go({ name: 'mainArtist' })
@@ -63,7 +65,7 @@ export default {
       Request.getInstance().post('artist', this.$data.artist).then(() => {
         toast.success('Artist Created!')
         this.$route.router.go({name: 'mainArtist'})
-      })
+      }, this.fail)
     },
     update: function (artist) {
       Request.getInstance().put(`artist/${this.artist.id}`, this.$data.artist).then(() => {
@@ -71,8 +73,8 @@ export default {
         this.$route.router.go({name: 'mainArtist'})
       }, this.fail)
     },
-    fail: function (response) {
-      toast.error(response.responseJSON.errors.title, response.responseJSON.errors.exception_name)
+    fail: (error) => {
+      console.log(error)
     }
   },
   created: function () {
