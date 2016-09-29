@@ -52,11 +52,12 @@ export default {
   },
   methods: {
     submit: function (e) {
-      this.$validate(true, () => {
-        if (this.$validation.valid) {
-          this.updating ? this.update() : this.create()
-        }
-      })
+      this.updating ? this.update() : this.create()
+      // this.$validate(() => {
+      //   if (this.$validation.valid) {
+      //     this.updating ? this.update() : this.create()
+      //   }
+      // })
     },
     backed: function () {
       this.$route.router.go({ name: 'mainArtist' })
@@ -75,9 +76,10 @@ export default {
     },
     fail: (error) => {
       console.log(error)
+      // toast.warning('DEU ALGUMA MERDA', 'DEU SIM')
     }
   },
-  created: function () {
+  mounted: function () {
     if (this.updating) {
       Request.getInstance().get(`artist/${this.$route.params.id}`).then((response) => {
         this.$data.artist = response.data
