@@ -6,7 +6,7 @@ class MyMtgModel {
     this._resourceName = this.defineResourceName()
   }
 
-  _definirRequest () {
+  _defineRequest () {
     return Request.getInstance()
   }
 
@@ -14,12 +14,8 @@ class MyMtgModel {
     throw new Error('You need to provide a resource name to use MyMtgModel with defineResourceName method')
   }
 
-  all (paginate = true) {
-    return this._request.get(this._resourceName, { paginate })
-  }
-
-  search (query = {}) {
-   return this._request.get(this._resourceName, query) 
+  all (query = {}) {
+    return this._request.get(this._resourceName, query)
   }
 
   get (id) {
@@ -33,14 +29,23 @@ class MyMtgModel {
     if (!data) {
       throw new Error('You need to pass a data object to update the resource')
     }
+    return this._request.post(this._resourceName, data)
   }
 
   update (id, data) {
     if (!data) {
       throw new Error('You need to pass a data object to update the resource')
     }
+    return this._request.put(`${this._resourceName}/${id}`, data)
+  }
+
+  delete (id) {
+    if (!id) {
+      throw new Error('You need to pass a id to use delete of MyMtgModel instance')
+    }
+    return this._request.delete(`${this._resourceName}/${id}`)
   }
 
 }
 
-export MyMtgModel
+export default MyMtgModel

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Request from 'src/common/http/Request'
+import ArtistModel from 'src/modules/cards/artist/models/Artist'
 import MymtgField from 'src/common/components/form/MymtgField'
 import MymtgAction from 'src/common/components/form/MymtgAction'
 import { toast } from 'src/common/components/notification/toast/Toast'
@@ -52,36 +52,32 @@ export default {
   },
   methods: {
     submit: function (e) {
-      this.updating ? this.update() : this.create()
-      // this.$validate(() => {
-      //   if (this.$validation.valid) {
-      //     this.updating ? this.update() : this.create()
-      //   }
-      // })
+      this.$validate(() => {
+        if (this.$validation.valid) {
+          this.updating ? this.update() : this.create()
+        }
+      })
     },
     backed: function () {
       this.$route.router.go({ name: 'mainArtist' })
     },
     create: function (artist) {
-      Request.getInstance().post('artist', this.$data.artist).then(() => {
+      this.artistModel.create(this.$data.artist).then(() => {
         toast.success('Artist Created!')
         this.$route.router.go({name: 'mainArtist'})
-      }, this.fail)
+      })
     },
     update: function (artist) {
-      Request.getInstance().put(`artist/${this.artist.id}`, this.$data.artist).then(() => {
+      this.artistModel.update(this.artist.id, this.$data.artist).then(() => {
         toast.success('Artist Updated!')
         this.$route.router.go({name: 'mainArtist'})
-      }, this.fail)
-    },
-    fail: (error) => {
-      console.log(error)
-      // toast.warning('DEU ALGUMA MERDA', 'DEU SIM')
+      })
     }
   },
-  mounted: function () {
+  created: function () {
+    this.artistModel = new ArtistModel()
     if (this.updating) {
-      Request.getInstance().get(`artist/${this.$route.params.id}`).then((response) => {
+      this.artistModel.get(this.$route.params.id).then((response) => {
         this.$data.artist = response.data
       }, (response) => {
         this.fail(response)
