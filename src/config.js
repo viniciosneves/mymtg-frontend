@@ -4,7 +4,8 @@ let serverConfig = {
   timeout: 1000,
   withCredentials: false,
   responseType: 'json', // default
-  maxRedirects: 5 // default
+  maxRedirects: 5, // default,
+  renderError: true
 }
 
 export {

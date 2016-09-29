@@ -29,13 +29,13 @@
 
 
 <script>
-  import JsonRequest from 'src/common/http/Request'
+  import Request from 'src/common/http/Request'
   import pagination from 'src/common/components/list/pagination/Pagination'
   import PaginationModel from 'src/common/components/list/pagination/Model'
   import { toast } from 'src/common/components/notification/toast/Toast'
   export default {
     created: function () {
-      this.apiModel = new JsonRequest()
+      this.request = new Request()
       this.loadArtists()
     },
     events: {
@@ -60,13 +60,13 @@
         this.loadArtists(page)
       },
       loadArtists: function (page = this.paginationModel.currentPage) {
-        this.apiModel.get('artist', { page, per_page: 10, query: this.artistQuery }).then((response) => {
-          this.$data.artists = response.data.data.data
-          this.$data.paginationModel.update(response.data.data)
+        this.request.get('artist', { page, per_page: 10, query: this.artistQuery }).then((response) => {
+          this.$data.artists = response.data.data
+          this.$data.paginationModel.update(response.data)
         })
       },
       deleteArtist: function (artist) {
-        this.apiModel.delete(`artist/${artist.id}`, artist).then(this.deleted, this.fail)
+        this.request.delete(`artist/${artist.id}`, artist).then(this.deleted, this.fail)
       },
       deleted: function (response) {
         toast.success('Artist removed!')

@@ -8,7 +8,7 @@ export class Toast {
       'closeButton': true,
       'debug': false,
       'newestOnTop': false,
-      'progressBar': false,
+      'progressBar': true,
       'positionClass': 'toast-bottom-right',
       'preventDuplicates': false,
       'showDuration': '300',
@@ -20,29 +20,31 @@ export class Toast {
       'showMethod': 'fadeIn',
       'hideMethod': 'fadeOut'
     }
+    this._toastr = toastr
 
     this._applyOptions(defaultOption)
     this._applyOptions(options)
   }
 
-  error (message, title) {
-    toastr.error(message, title)
+  error (message, title, opts = {}) {
+    this._applyOptions(opts)
+    this._toastr.error(message, title)
   }
 
   info (message, title) {
-    toastr.info(message, title)
+    this._toastr.info(message, title)
   }
 
   success (message, title) {
-    toastr.success(message, title)
+    this._toastr.success(message, title)
   }
 
   warning (message, title) {
-    toastr.warning(message, title)
+    this._toastr.warning(message, title)
   }
 
   _applyOptions (options) {
-    toastr.options = Object.assign(options || {}, toastr.options)
+    this._toastr.options = Object.assign(this._toastr.options, options || {})
   }
 
 }

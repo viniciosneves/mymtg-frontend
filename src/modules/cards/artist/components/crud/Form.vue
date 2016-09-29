@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import JsonRequest from 'src/common/http/JsonRequest'
+import Request from 'src/common/http/Request'
 import MymtgField from 'src/common/components/form/MymtgField'
 import MymtgAction from 'src/common/components/form/MymtgAction'
 import { toast } from 'src/common/components/notification/toast/Toast'
@@ -60,13 +60,13 @@ export default {
       this.$route.router.go({ name: 'mainArtist' })
     },
     create: function (artist) {
-      this.apiModel.post('artist', this.$data.artist).then(() => {
+      Request.getInstance().post('artist', this.$data.artist).then(() => {
         toast.success('Artist Created!')
         this.$route.router.go({name: 'mainArtist'})
-      }, this.fail)
+      })
     },
     update: function (artist) {
-      this.apiModel.put(`artist/${this.artist.id}`, this.$data.artist).then(() => {
+      Request.getInstance().put(`artist/${this.artist.id}`, this.$data.artist).then(() => {
         toast.success('Artist Updated!')
         this.$route.router.go({name: 'mainArtist'})
       }, this.fail)
@@ -76,9 +76,8 @@ export default {
     }
   },
   created: function () {
-    this.apiModel = new JsonRequest()
     if (this.updating) {
-      this.apiModel.get(`artist/${this.$route.params.id}`).then((response) => {
+      Request.getInstance().get(`artist/${this.$route.params.id}`).then((response) => {
         this.$data.artist = response.data
       }, (response) => {
         this.fail(response)
