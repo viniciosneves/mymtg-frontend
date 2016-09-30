@@ -20,8 +20,9 @@ import MymtgField from 'src/common/components/form/MymtgField'
 import MymtgAction from 'src/common/components/form/MymtgAction'
 import { toast } from 'src/common/components/notification/toast/Toast'
 export default {
-  props: [
-  ],
+  props: {
+
+  },
   components: {
     MymtgField,
     MymtgAction
@@ -57,18 +58,18 @@ export default {
       })
     },
     backed: function () {
-      this.$route.router.go({ name: 'mainArtist' })
+      this.$router.push({ name: 'mainArtist' })
     },
     create: function (artist) {
       this.artistModel.create(this.$data.artist).then(() => {
         toast.success('Artist Created!')
-        this.$route.router.go({name: 'mainArtist'})
+        this.$router.push({name: 'mainArtist'})
       })
     },
     update: function (artist) {
       this.artistModel.update(this.artist.id, this.$data.artist).then(() => {
         toast.success('Artist Updated!')
-        this.$route.router.go({name: 'mainArtist'})
+        this.$router.push({name: 'mainArtist'})
       })
     }
   },
@@ -79,7 +80,7 @@ export default {
         this.$data.artist = response.data
       }, (response) => {
         this.fail(response)
-        this.$route.router.go({name: 'mainArtist'})
+        this.$router.push({name: 'mainArtist'})
       })
     }
   }

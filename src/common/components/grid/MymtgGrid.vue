@@ -4,11 +4,11 @@
   <thead>
       <tr>
         <th v-for="column in columns"
-          @click="sortBy(key)"
-          :class="{actived: sortKey == key}">
-          {{ getColumnText(column) | capitalize}}
+          @click="sortBy(column)"
+          :class="{actived: sortKey == column}">
+          {{ getColumnText(column)}}
           <span class="arrow"
-            :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+            :class="sortOrders[column] > 0 ? 'asc' : 'dsc'">
           </span>
         </th>
       </tr>
@@ -21,8 +21,6 @@
       </tr>
     </tbody>
   </table>
-  <pre>{{ $data | json }}</pre>
-  <!-- <pagination @change="changePage" :model="paginationModel" ></pagination> -->
   </div>
 </template>
 
@@ -58,6 +56,9 @@ export default {
     },
     isRowSelected: function (entry) {
       return this.selectedRow === entry
+    },
+    getColumnText: function (column) {
+      return column.text
     }
   },
   created: function () {

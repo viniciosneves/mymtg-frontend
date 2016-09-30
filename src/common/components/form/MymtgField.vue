@@ -14,17 +14,15 @@
 
 <script type="text/javascript">
   export default {
-    props: [
-      {
-        name: 'label',
+    props: {
+      label: {
         type: String,
         default: undefined
       },
-      {
-        name: 'validator',
+      validator: {
         default: undefined
       }
-    ],
+    },
     data: function () {
       return {
         // placeholder: 'TESTO'

@@ -11,33 +11,28 @@
 
 <script type="text/javascript">
   export default {
-    props: [
-      {
-        name: 'submitText',
+    props: {
+      submitText: {
         type: String,
         default: 'Submit'
       },
-      {
-        name: 'backText',
+      backText: {
         type: String,
         default: 'Get back'
       },
-      {
-        name: 'resetText',
+      resetText: {
         type: String,
         default: 'Reset'
       },
-      {
-        name: 'reset',
+      reset: {
         type: String,
         default: 'on'
       },
-      {
-        name: 'back',
+      back: {
         type: String,
         default: 'on'
       }
-    ],
+    },
     data: function () {
       return {
         // placeholder: 'TESTO'

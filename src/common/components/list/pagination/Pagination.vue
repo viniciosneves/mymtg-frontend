@@ -13,12 +13,11 @@
 
 <script type="text/javascript">
   export default {
-    props: [
-      {
-        name: 'model',
+    props: {
+      'model': {
         required: true
       }
-    ],
+    },
     data: function () {
       return {
       }

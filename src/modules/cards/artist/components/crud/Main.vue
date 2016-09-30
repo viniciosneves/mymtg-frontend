@@ -25,7 +25,6 @@
     </tr>
   </tbody>
   </table> -->
-    <pre>{{ $data.selectedRow | json}}</pre>
   <pagination @change="changePage" :model="paginationModel" ></pagination>
   </div>
 
@@ -42,13 +41,6 @@
     created: function () {
       this.artistModel = new ArtistModel()
       this.loadArtists()
-    },
-    events: {
-      'appsearch': function (query) {
-        console.log('appsearch')
-        this.artistQuery = query
-        this.loadArtists()
-      }
     },
     components: {
       pagination,
