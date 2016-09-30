@@ -1,6 +1,6 @@
 <template>
   <div id='app'>
-  <topbar @topbarsearch="onTopBarSearch"></topbar>
+  <topbar></topbar>
     <div class="container-fluid">
       <div class="row">
        <sidebar></sidebar>
@@ -26,9 +26,6 @@ export default {
     sidebar
   },
   methods: {
-    onTopBarSearch: function (query) {
-      this.$broadcast('appsearch', query)
-    }
   }
 }
 

@@ -1,7 +1,9 @@
 <template>
+<div>
   <h1>Sorry, the page you are trying to access do not exists</h1>
   <br>
   <button class="btn btn-info" @click="routeToMain" >Back to Main</button>
+</div>
 </template>
 
 
@@ -14,7 +16,7 @@
     },
     methods: {
       routeToMain: function () {
-        this.$route.router.go({ name: 'main' })
+        this.$router.push({ name: 'main' })
       }
     }
   }

@@ -1,11 +1,12 @@
 <template>
+<div>
   <div class="form-group">
     <button type="submit" class="btn btn-default btn-success" @click.prevent="submitClicked">{{ submitText }}</button>
     <button v-if="showReset" class="btn btn-default btn-warning" @click="resetClicked">{{ resetText }}</button>
     <button v-if="showBack" class="btn btn-default btn-danger" @click.prevent="backClicked">{{ backText }}</button>
-  <slot></slot>
+    <slot></slot>
   </div>
-  <!-- <pre>{{ $data | json }}</pre> -->
+</div>
 </template>
 
 <script type="text/javascript">

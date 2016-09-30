@@ -1,12 +1,11 @@
 <template>
   <div>
     <h1>Artists</h1>
-  </div>
   <mymtg-grid :data="artists"
-              :columns="[ 'id', 'name', 'created_at', 'updated_at' ]"
+              :columns="columns"
               @selectedrow="selected"
               ></mymtg-grid>
-  <div>
+
 <!-- <table class="table table-bordered">
   <thead>
     <th>Id</th>
@@ -61,6 +60,16 @@
         paginationModel: new PaginationModel(),
         artistQuery: '',
         selectedRow: null
+      }
+    },
+    computed: {
+      columns: function () {
+        return [
+          { index: 'id', text: 'ID' },
+          { index: 'name', text: 'Name' },
+          { index: 'created_at', text: 'Creation date' },
+          { index: 'updated_at', text: 'Last Updated' }
+        ]
       }
     },
     methods: {

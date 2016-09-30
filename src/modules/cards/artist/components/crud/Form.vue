@@ -1,17 +1,17 @@
 <template>
-<validator name="validation">
-<form>
-<h1>{{ title }}</h1>
-  <mymtg-field label="ID" v-if="updating">
-    <input class="form-control input-sm" disabled="disabled" v-model="artist.id"/>
-  </mymtg-field>
-  <mymtg-field label="Name" :validator="$validation.name">
-    <input initial="off" class="form-control input-lg"  v-validate:name="['required']" v-model="artist.name" placeholder="Name">
-  </mymtg-field>
-  <mymtg-action reset="off" @backed="backed" @submitted="submit"></mymtg-action>
-</form>
-  </validator>
-<!-- <pre>{{ $data | json}}</pre> -->
+<div>
+  <form>
+  <h1>{{ title }}</h1>
+    <mymtg-field label="ID" v-if="updating">
+      <input class="form-control input-sm" disabled="disabled" v-model="artist.id"/>
+    </mymtg-field>
+    <mymtg-field label="Name">
+      <input initial="off" class="form-control input-lg" v-model="artist.name" placeholder="Name">
+    </mymtg-field>
+    <mymtg-action reset="off" @backed="backed" @submitted="submit"></mymtg-action>
+  </form>
+</div>
+
 </template>
 
 <script>
@@ -25,8 +25,6 @@ export default {
   components: {
     MymtgField,
     MymtgAction
-  },
-  validators: {
   },
   data: function () {
     return {

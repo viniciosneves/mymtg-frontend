@@ -4,7 +4,7 @@ import App from './modules/global/main/components/App'
 
 import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
 import './common/directives/Directives'
-import './common/validators/Validators'
+// import './common/validators/Validators'
 
 import cardRoutes from './modules/cards/routes'
 import globalRoutes from './modules/global/routes'
@@ -12,22 +12,14 @@ import globalRoutes from './modules/global/routes'
 Vue.use(VueRouter)
 
 let router = new VueRouter({
-  hashbang: false,
-  history: true,
-  linkActiveClass: 'active'
+  mode: 'history',
+  // linkActiveClass: 'teste',
+  routes: [...cardRoutes, ...globalRoutes]
 })
 
-/* Route Map */
-router.map(Object.assign(globalRoutes,
-                          cardRoutes))
-
-/* Route Redirects */
-router.redirect({
-  '/': '/dashbord',
-  '*': '/notfound'
+const app = new Vue({
+  router,
+  ...App
 })
 
-/* Bootstrap routes to the main component */
-router.start({
-  components: { App }
-}, 'body')
+app.$mount('#apps')

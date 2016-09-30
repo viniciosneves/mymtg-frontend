@@ -1,8 +1,8 @@
 <template>
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-           <li v-link="{ path: '/dashbord' }"><a>Dashbord</a></li>
-            <li v-link="{ path: '/cards' }"><a>Cards</a></li>
+          <li><router-link to="/dashbord">Dashbord</router-link></li>
+          <li><router-link to="/cards">Cards</router-link></li>
           <!--   <li><a v-link="{ path: '/about' }">Analytics</a></li>
             <li><a href="#">Export</a></li> -->
         </ul>        

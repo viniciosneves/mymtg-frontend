@@ -1,12 +1,12 @@
 <template>
+<div>
   <table class="table table-bordered">
   <thead>
-    <thead>
       <tr>
-        <th v-for="key in columns"
+        <th v-for="column in columns"
           @click="sortBy(key)"
           :class="{actived: sortKey == key}">
-          {{key | capitalize}}
+          {{ getColumnText(column) | capitalize}}
           <span class="arrow"
             :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
           </span>
@@ -15,14 +15,15 @@
     </thead>
     <tbody>
       <tr  v-for="entry in data" :class="isRowSelected(entry) ? 'selected' : ''" @click="selectRow(entry)">
-        <td v-for="key in columns">
-          {{entry[key]}}
+        <td v-for="column in columns">
+          {{entry[column.index]}}
         </td>
       </tr>
     </tbody>
   </table>
   <pre>{{ $data | json }}</pre>
   <!-- <pagination @change="changePage" :model="paginationModel" ></pagination> -->
+  </div>
 </template>
 
 <script type="text/javascript">

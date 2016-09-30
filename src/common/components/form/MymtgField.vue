@@ -1,4 +1,5 @@
 <template>
+<div>
   <div :class="{ 'has-error' : !valid }" class="form-group">
     <label v-show="label"  class="control-label">{{ label }}:</label>
     <slot></slot>
@@ -8,7 +9,7 @@
       </ul>
      </span>
   </div>
-  <!-- <pre>{{ $data | json }}</pre> -->
+</div>
 </template>
 
 <script type="text/javascript">

@@ -47,11 +47,11 @@
 
     methods: {
       search: function (e) {
-        this.$dispatch('topbarsearch', this.query)
+        this.$emit('topbarsearch', this.query)
       },
       cleanQuery: function (e) {
         this.query = ''
-        this.$dispatch('topbarsearch', this.query)
+        this.$emit('topbarsearch', this.query)
       }
     }
 

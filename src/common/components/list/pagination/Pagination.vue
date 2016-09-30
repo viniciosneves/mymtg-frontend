@@ -1,4 +1,5 @@
 <template>
+<div>
 <div>Page {{ model.currentPage }} of {{ model.lastPage }}</div>
   <ul class="pagination">
     <li><a @click="changePage(model.firstPage)">First</a></li>
@@ -6,7 +7,7 @@
     <li :class="isLastPage ? 'disabled' : ''"><a @click="changePage(model.nextPage)">Next</a></li>
     <li><a @click="changePage(model.lastPage)">Last</a></li>
   </ul>
- 
+ </div>
 </template>
 
 

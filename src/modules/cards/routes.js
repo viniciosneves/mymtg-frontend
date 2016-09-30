@@ -2,20 +2,24 @@ import MainArtist from './artist/components/crud/Main'
 import ArtistForm from './artist/components/crud/Form'
 import Menu from './Menu'
 
-export default {
-  '/cards': {
+export default [
+  {
+    path: '/cards',
     component: Menu
   },
-  '/cards/artist': {
+  {
+    path: '/cards/artist',
     component: MainArtist,
     name: 'mainArtist'
   },
-  '/cards/artist/create': {
+  {
+    path: '/cards/artist/create',
     component: ArtistForm,
     name: 'createArtist'
   },
-  '/cards/artist/update/:id': {
+  {
+    path: '/cards/artist/update/:id',
     component: ArtistForm,
     name: 'updateArtist'
   }
-}
+]

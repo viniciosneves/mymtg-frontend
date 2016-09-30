@@ -1,20 +1,14 @@
 <template>
   <div class='menu'>
-    <button class="btn btn-lg btn-primary" v-link="{ name: 'mainArtist' }">Artists</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/block' }">Block</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/card' }">Card</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/color' }">Color</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/edition' }">Edition</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/rarety' }">Rarety</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/type' }">Type</button>
+    <router-link class="btn btn-lg btn-primary" :to="{ name: 'mainArtist' }">Artists</router-link>
+    <router-link class="btn btn-lg btn-primary" :to="{ path: '/cards/block' }">Block</router-link>
+    <router-link class="btn btn-lg btn-primary" :to="{ path: '/cards/card' }">Card</router-link>
+    <router-link class="btn btn-lg btn-primary" :to="{ path: '/cards/color' }">Color</router-link>
+    <router-link class="btn btn-lg btn-primary" :to="{ path: '/cards/edition' }">Edition</router-link>
+    <router-link class="btn btn-lg btn-primary" :to="{ path: '/cards/rarety' }">Rarety</router-link>
+    <router-link class="btn btn-lg btn-primary" :to="{ path: '/cards/type' }">Type</router-link>
   </div>
 </template>
-
-<script>
-export default {
-
-}
-</script>
 
 <style>
 .menu .btn {
