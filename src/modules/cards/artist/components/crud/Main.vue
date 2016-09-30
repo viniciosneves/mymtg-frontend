@@ -2,8 +2,12 @@
   <div>
     <h1>Artists</h1>
   </div>
+  <mymtg-grid :data="artists"
+              :columns="[ 'id', 'name', 'created_at', 'updated_at' ]"
+              @selectedrow="selected"
+              ></mymtg-grid>
   <div>
-<table class="table table-bordered">
+<!-- <table class="table table-bordered">
   <thead>
     <th>Id</th>
     <th>Name</th>
@@ -21,14 +25,16 @@
       <td><a @click="deleteArtist(artist)" class="btn btn-danger btn-block">Remove</a></td>
     </tr>
   </tbody>
-  </table>
+  </table> -->
+    <pre>{{ $data.selectedRow | json}}</pre>
   <pagination @change="changePage" :model="paginationModel" ></pagination>
   </div>
-  <!-- <pre>{{ $data | json}}</pre> -->
+
 </template>
 
 
 <script>
+  import MymtgGrid from 'src/common/components/grid/MymtgGrid'
   import ArtistModel from 'src/modules/cards/artist/models/Artist'
   import pagination from 'src/common/components/list/pagination/Pagination'
   import PaginationModel from 'src/common/components/list/pagination/Model'
@@ -46,18 +52,24 @@
       }
     },
     components: {
-      pagination
+      pagination,
+      MymtgGrid
     },
     data () {
       return {
         artists: [],
         paginationModel: new PaginationModel(),
-        artistQuery: ''
+        artistQuery: '',
+        selectedRow: null
       }
     },
     methods: {
       changePage: function (page) {
         this.loadArtists(page)
+      },
+      selected: function (row) {
+        console.log(row)
+        this.selectedRow = row
       },
       loadArtists: function (page = this.paginationModel.currentPage) {
         this.artistModel.all({ page, per_page: 10, query: this.artistQuery }).then((response) => {
@@ -66,14 +78,11 @@
         })
       },
       deleteArtist: function (artist) {
-        this.artistModel.delete(artist.id).then(this.deleted, this.fail)
+        this.artistModel.delete(artist.id).then(this.deleted)
       },
       deleted: function (response) {
         toast.success('Artist removed!')
         this.loadArtists()
-      },
-      fail: function (response) {
-        toast.error(response.responseJSON.errors.title, response.responseJSON.errors.exception_name)
       }
     }
   }
