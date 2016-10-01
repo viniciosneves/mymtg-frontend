@@ -14,13 +14,22 @@
       </tr>
     </thead>
     <tbody>
-      <tr  v-for="entry in data" :class="isRowSelected(entry) ? 'selected' : ''" @click="selectRow(entry)">
-        <td v-for="column in columns">
-          {{entry[column.index]}}
-        </td>
+      <tr v-for="entry in data"
+          :class="{selected: isRowSelected(entry)}"
+          @click="selectRow(entry)"
+          @dblclick="dbclick(entry)">
+          <td v-for="column in columns">
+            {{getColumnValue(entry, column)}}
+          </td>
       </tr>
     </tbody>
   </table>
+  <div>
+    <slot name="actions" ></slot> 
+  </div>
+  <div>
+    <slot name="pagination" ></slot> 
+  </div>
   </div>
 </template>
 
@@ -54,11 +63,18 @@ export default {
       this.selectedRow = entry
       this.$emit('selectedrow', entry)
     },
+    dbclick: function (entry) {
+      this.selectedrow = entry
+      this.$emit('dbclickrow', entry)
+    },
     isRowSelected: function (entry) {
       return this.selectedRow === entry
     },
     getColumnText: function (column) {
-      return column.text
+      return column.text || column
+    },
+    getColumnValue: function (entry, column) {
+      return entry[column.index] || entry[column]
     }
   },
   created: function () {

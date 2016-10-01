@@ -1,12 +1,12 @@
 <template>
-    <div class="col-sm-3 col-md-2 sidebar">
-        <ul class="nav nav-sidebar">
-          <li><router-link to="/dashbord">Dashbord</router-link></li>
-          <li><router-link to="/cards">Cards</router-link></li>
+    <nav class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav-sidebar">
+          <router-link tag="li" to="/dashbord"><a>Dashbord</a></router-link>
+          <router-link tag="li" to="/cards"><a>Cards</a></router-link>
           <!--   <li><a v-link="{ path: '/about' }">Analytics</a></li>
             <li><a href="#">Export</a></li> -->
         </ul>        
-    </div>
+    </nav>
 </template>
 
 <script>
@@ -15,9 +15,26 @@
 </script>
 
 <style>
-    /*
- * Sidebar
- */
+ul {
+ 
+}
+li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+ text-decoration-line: none;
+
+}
+
+a.router-link-active {
+ color: #fff;
+  background-color: #428bca;
+}
+li.router-link-active a {
+ color: #fff;
+  background-color: #428bca;
+
+}
 
 /* Hide for mobile, show later */
 .sidebar {
@@ -42,17 +59,19 @@
 /* Sidebar navigation */
 .nav-sidebar {
   margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
   margin-left: -20px;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
 }
 .nav-sidebar > li > a {
   padding-right: 20px;
   padding-left: 20px;
   cursor: pointer;
 }
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
+.nav-sidebar > .router-link-active > a,
+.nav-sidebar > .router-link-active > a:hover,
+.nav-sidebar > .router-link-active > a:focus {
   color: #fff;
   background-color: #428bca;
 }

@@ -13,7 +13,6 @@ Vue.use(VueRouter)
 
 let router = new VueRouter({
   mode: 'history',
-  // linkActiveClass: 'teste',
   routes: [...cardRoutes, ...globalRoutes]
 })
 

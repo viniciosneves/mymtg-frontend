@@ -4,7 +4,15 @@
   <mymtg-grid :data="artists"
               :columns="columns"
               @selectedrow="selected"
-              ></mymtg-grid>
+              @dbclickrow="editArtist"
+              >
+  <div slot="actions" >
+    <button>Create</button>
+    <button>Update</button>
+    <button>Delete</button>
+  </div>
+      <pagination slot="pagination" @change="changePage" :model="paginationModel" ></pagination>
+</mymtg-grid>
 
 <!-- <table class="table table-bordered">
   <thead>
@@ -25,7 +33,6 @@
     </tr>
   </tbody>
   </table> -->
-  <pagination @change="changePage" :model="paginationModel" ></pagination>
   </div>
 
 </template>
@@ -57,7 +64,7 @@
     computed: {
       columns: function () {
         return [
-          { index: 'id', text: 'ID' },
+          { index: 'id', text: 'Id' },
           { index: 'name', text: 'Name' },
           { index: 'created_at', text: 'Creation date' },
           { index: 'updated_at', text: 'Last Updated' }
@@ -69,8 +76,11 @@
         this.loadArtists(page)
       },
       selected: function (row) {
-        console.log(row)
         this.selectedRow = row
+      },
+      editArtist: function (row) {
+        console.log(row)
+        this.$router.push({ name: 'updateArtist', params: { id: row.id } })
       },
       loadArtists: function (page = this.paginationModel.currentPage) {
         this.artistModel.all({ page, per_page: 10, query: this.artistQuery }).then((response) => {
