@@ -4,13 +4,11 @@
   <mymtg-grid :data="artists"
               :columns="columns"
               @selectedrow="selected"
-              @dbclickrow="editArtist"
-              multi="1"
-              >
+              @dbclickrow="editArtist">
   <div slot="actions" >
-    <button  class="btn btn-default btn-lg">Create</button>
-    <button :class="selectedRow === null ? 'disabled' : ''" class="btn btn-default btn-lg">Update</button>
-    <button :class="selectedRow === null ? 'disabled' : ''" class="btn btn-default btn-lg">Delete</button>
+    <button @click="newArtist"  class="btn btn-default btn-lg">Create</button>
+    <button @click="editArtist" :class="selectedRow === null ? 'disabled' : ''" class="btn btn-default btn-lg">Update</button>
+    <button @click="deleteArtist" :class="selectedRow === null ? 'disabled' : ''" class="btn btn-default btn-lg">Delete</button>
   </div>
       <pagination slot="pagination" @change="changePage" :model="paginationModel" ></pagination>
 </mymtg-grid>
@@ -59,8 +57,11 @@
       selected: function (row) {
         this.selectedRow = row
       },
-      editArtist: function (row) {
-        this.$router.push({ name: 'updateArtist', params: { id: row.id } })
+      editArtist: function () {
+        this.$router.push({ name: 'updateArtist', params: { id: this.selectedRow.id } })
+      },
+      newArtist: function () {
+        this.$router.push({ name: 'createArtist' })
       },
       loadArtists: function (page = this.paginationModel.currentPage) {
         this.artistModel.all({ page, per_page: 10, query: this.artistQuery }).then((response) => {
@@ -68,8 +69,8 @@
           this.$data.paginationModel.update(response.data)
         })
       },
-      deleteArtist: function (artist) {
-        this.artistModel.delete(artist.id).then(this.deleted)
+      deleteArtist: function () {
+        this.artistModel.delete(this.selectedRow.id).then(this.deleted)
       },
       deleted: function (response) {
         toast.success('Artist removed!')

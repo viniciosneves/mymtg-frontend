@@ -51,11 +51,11 @@ export default {
   },
   methods: {
     submit: function (e) {
-      this.$validate(() => {
-        if (this.$validation.valid) {
-          this.updating ? this.update() : this.create()
-        }
-      })
+      /* this.$validate(() => {
+        if (this.$validation.valid) { */
+      this.updating ? this.update() : this.create()
+        // }
+      // })
     },
     backed: function () {
       this.$router.push({ name: 'mainArtist' })
@@ -79,7 +79,6 @@ export default {
       this.artistModel.get(this.$route.params.id).then((response) => {
         this.$data.artist = response.data
       }, (response) => {
-        this.fail(response)
         this.$router.push({name: 'mainArtist'})
       })
     }
