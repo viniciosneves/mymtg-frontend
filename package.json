@@ -21,7 +21,8 @@
     "toastr": "^2.1.2",
     "vue": "^2.0",
     "vue-router": "^2.0",
-    "vue-validator": "^2.1.7"
+    "vue-validator": "^2.1.7",
+    "vuex": "^2.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
