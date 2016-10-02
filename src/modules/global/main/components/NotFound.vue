@@ -11,6 +11,7 @@
 
 <script type="text/javascript">
   export default {
+    name: 'MymtgNotFound',
     created: function () {
 
     },

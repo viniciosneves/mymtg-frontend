@@ -22,6 +22,7 @@
 
 <script type="text/javascript">
   export default {
+    name: 'MymtgPagination',
     props: {
       'model': {
         required: true

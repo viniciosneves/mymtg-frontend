@@ -10,6 +10,12 @@
   </div>
 </template>
 
+<script type="text/javascript">
+export default {
+  name: 'MymtgMainMenu'
+}
+</script>
+
 <style>
 .menu .btn {
   padding: 60px;

@@ -24,6 +24,7 @@
   import PaginationModel from 'src/common/components/list/pagination/Model'
   import { toast } from 'src/common/components/notification/toast/Toast'
   export default {
+    name: 'MymtgArtistMain',
     mounted: function () {
       this.artistModel = new ArtistModel()
       this.loadArtists()

@@ -37,14 +37,17 @@
 
 <script>
   export default {
-
+    name: 'MymtgTopbar',
     data: function () {
       return {
-        projectName: 'My Magic the Gathering',
-        query: ''
+        projectName: 'My Magic the Gathering'
       }
     },
-
+    computed: {
+      query: function () {
+        return this.$store.state.search.query
+      }
+    },
     methods: {
       search: function (e) {
         this.$emit('topbarsearch', this.query)

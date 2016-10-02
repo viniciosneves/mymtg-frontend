@@ -20,6 +20,7 @@ import MymtgField from 'src/common/components/form/MymtgField'
 import MymtgAction from 'src/common/components/form/MymtgAction'
 import { toast } from 'src/common/components/notification/toast/Toast'
 export default {
+  name: 'MymtgArtistForm',
   props: {
 
   },

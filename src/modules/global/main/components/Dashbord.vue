@@ -4,7 +4,11 @@
 </template>
 
 
-<script type="text/javascript"></script>
+<script type="text/javascript">
+  export default {
+    name: 'MymtgGlobalDashbord'
+  }
+</script>
 
 
 

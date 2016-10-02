@@ -1,5 +1,5 @@
 <template>
-  <div id='app'>
+  <div>
   <topbar></topbar>
     <div class="container-fluid">
       <div class="row">
@@ -19,6 +19,7 @@
 import topbar from './Topbar'
 import sidebar from './Sidebar'
 export default {
+  name: 'App',
   created: function () {
   },
   components: {

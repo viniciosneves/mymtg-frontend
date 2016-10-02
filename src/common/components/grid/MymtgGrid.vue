@@ -36,6 +36,7 @@
 <script type="text/javascript">
 import pagination from 'src/common/components/list/pagination/Pagination'
 export default {
+  name: 'MymtgGrid',
   props: {
     data: Array,
     columns: Array

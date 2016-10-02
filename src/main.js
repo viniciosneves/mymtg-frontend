@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import MainStore from 'src/common/store/MainStore'
 import App from './modules/global/main/components/App'
 
 import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
@@ -13,12 +14,13 @@ Vue.use(VueRouter)
 
 let router = new VueRouter({
   mode: 'history',
-  routes: [...cardRoutes, ...globalRoutes]
+  routes: [...cardRoutes,
+          ...globalRoutes]
 })
 
-const app = new Vue({
+new Vue({
+  store: MainStore,
   router,
-  ...App
+  el: '#app',
+  render: h => h(App)
 })
-
-app.$mount('#apps')
