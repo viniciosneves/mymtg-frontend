@@ -16,7 +16,7 @@
     <tbody>
       <tr v-for="entry in data"
           :class="{selected: isRowSelected(entry)}"
-          @click="selectRow(entry)"
+          @click="rowClicked(entry)"
           @dblclick="dbclick(entry)">
           <td v-for="column in columns">
             {{getColumnValue(entry, column)}}
@@ -59,25 +59,41 @@ export default {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
     },
-    selectRow: function (entry) {
-      this.selectedRow = entry
-      this.$emit('selectedrow', entry)
+    rowClicked: function (row) {
+      this.selectRow(row)
+      this.$emit('selectedrow', this.selectedRow)
     },
-    dbclick: function (entry) {
-      this.selectedrow = entry
-      this.$emit('dbclickrow', entry)
+    dbclick: function (row) {
+      this.selectRow(row)
+      this.$emit('dbclickrow', this.selectedRow)
     },
     isRowSelected: function (entry) {
-      return this.selectedRow === entry
+      return this.selectedRow != null ? this.selectedRow[this.idColumn] === entry[this.idColumn] : false
     },
     getColumnText: function (column) {
       return column.text || column
     },
     getColumnValue: function (entry, column) {
       return entry[column.index] || entry[column]
+    },
+    selectRow: function (row) {
+      if (this.isRowSelected(row)) {
+        this.selectedRow = null
+      } else {
+        this.selectedRow = row
+      }
     }
   },
-  created: function () {
+  computed: {
+    idColumn: function () {
+      var id = this.columns[0].index || this.columns[0]
+      for (let column in this.columns) {
+        id = column.id ? column.index : id
+      }
+      return id
+    }
+  },
+  mounted: function () {
   }
 }
 </script>

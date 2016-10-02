@@ -5,34 +5,15 @@
               :columns="columns"
               @selectedrow="selected"
               @dbclickrow="editArtist"
+              multi="1"
               >
   <div slot="actions" >
-    <button>Create</button>
-    <button>Update</button>
-    <button>Delete</button>
+    <button  class="btn btn-default btn-lg">Create</button>
+    <button :class="selectedRow === null ? 'disabled' : ''" class="btn btn-default btn-lg">Update</button>
+    <button :class="selectedRow === null ? 'disabled' : ''" class="btn btn-default btn-lg">Delete</button>
   </div>
       <pagination slot="pagination" @change="changePage" :model="paginationModel" ></pagination>
 </mymtg-grid>
-
-<!-- <table class="table table-bordered">
-  <thead>
-    <th>Id</th>
-    <th>Name</th>
-    <th>Created at</th>
-    <th>Updated at</th>
-    <th colspan="2"><a class="btn btn-default btn-block" v-link="{ name: 'createArtist' }" >New Artist</a></th>
-  </thead>
-  <tbody>
-    <tr @dblclick="$route.router.go({ name: 'updateArtist', params: {id: artist.id }})" v-for="artist in artists | filterBy artistQuery">
-      <td>{{ artist.id }}</td>
-      <td>{{ artist.name }}</td>
-      <td>{{ artist.created_at }}</td>
-      <td>{{ artist.updated_at }}</td>
-      <td><a  v-link="{ name: 'updateArtist', params: { id: artist.id }}" class="btn btn-warning btn-block">edit</a></td>
-      <td><a @click="deleteArtist(artist)" class="btn btn-danger btn-block">Remove</a></td>
-    </tr>
-  </tbody>
-  </table> -->
   </div>
 
 </template>
@@ -45,7 +26,7 @@
   import PaginationModel from 'src/common/components/list/pagination/Model'
   import { toast } from 'src/common/components/notification/toast/Toast'
   export default {
-    created: function () {
+    mounted: function () {
       this.artistModel = new ArtistModel()
       this.loadArtists()
     },
@@ -64,7 +45,7 @@
     computed: {
       columns: function () {
         return [
-          { index: 'id', text: 'Id' },
+          { index: 'id', text: 'Id', id: true },
           { index: 'name', text: 'Name' },
           { index: 'created_at', text: 'Creation date' },
           { index: 'updated_at', text: 'Last Updated' }
@@ -79,7 +60,6 @@
         this.selectedRow = row
       },
       editArtist: function (row) {
-        console.log(row)
         this.$router.push({ name: 'updateArtist', params: { id: row.id } })
       },
       loadArtists: function (page = this.paginationModel.currentPage) {
