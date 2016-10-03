@@ -1,34 +1,38 @@
 <template>
 <div>
-  <table class="table table-bordered">
-  <thead>
-      <tr>
-        <th v-for="column in columns"
-          @click="sortBy(column)"
-          :class="{actived: sortKey == column}">
-          {{ getColumnText(column)}}
-          <span class="arrow"
-            :class="sortOrders[column] > 0 ? 'asc' : 'dsc'">
-          </span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="entry in data"
-          :class="{selected: isRowSelected(entry)}"
-          @click="rowClicked(entry)"
-          @dblclick="dbclick(entry)">
-          <td v-for="column in columns">
-            {{getColumnValue(entry, column)}}
-          </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="grid-container">
+    <table style="margin-bottom:5px" class="table table-bordered">
+    <thead>
+        <tr>
+          <th v-for="column in columns"
+            @click="sortBy(column)"
+            :class="{actived: sortKey == column}">
+            {{ getColumnText(column)}}
+            <span class="arrow"
+              :class="sortOrders[column] > 0 ? 'asc' : 'dsc'">
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="entry in data"
+            :class="{selected: isRowSelected(entry)}"
+            @click="rowClicked(entry)"
+            @dblclick="dbclick(entry)">
+            <td v-for="column in columns">
+              {{getColumnValue(entry, column)}}
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid-bottom">
   <div>
     <slot name="actions" ></slot> 
   </div>
-  <div>
+      <div class="grid-pagination">
     <slot name="pagination" ></slot> 
+  </div>
   </div>
   </div>
 </template>
@@ -142,8 +146,17 @@ tr {
 tr:hover {
   background-color: #FCFFCD
 }
-
+.grid-container {
+  height: 405px;
+}
 .selected {
   background-color: #FFFD7C
+}
+.grid-bottom {
+  display: flex;
+
+}
+.grid-pagination {
+
 }
 </style>

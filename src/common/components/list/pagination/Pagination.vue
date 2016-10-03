@@ -67,10 +67,10 @@
 }
 
 .pagination-container > .pagination-item {
-  margin-right:10px;
+  margin-right:20px;
   text-align: center;
   padding-left: 0;
-  margin: 20px 5px;
+  margin-top: 5px;
 }
 
 .pagination-info {

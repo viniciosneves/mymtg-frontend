@@ -1,15 +1,18 @@
 <template>
-  <div>
+  <div >
     <h1>Artists</h1>
+    <div> FILTER </div>
   <mymtg-grid :data="artists"
               :columns="columns"
               @selectedrow="selected"
               @dbclickrow="editArtist">
-  <div slot="actions" >
-    <button @click="newArtist"  class="btn btn-default btn-lg">Create</button>
-    <button @click="editArtist" :class="selectedRow === null ? 'disabled' : ''" class="btn btn-default btn-lg">Update</button>
-    <button @click="deleteArtist" :class="selectedRow === null ? 'disabled' : ''" class="btn btn-default btn-lg">Delete</button>
-  </div>
+
+      <mymtg-crud-actions slot="actions" 
+                          :selectedItem="selectedRow"
+                          @create="newArtist"
+                          @update="editArtist"
+                          @remove="deleteArtist">
+      </mymtg-crud-actions>
       <pagination slot="pagination" @change="changePage" :model="paginationModel" ></pagination>
 </mymtg-grid>
   </div>
@@ -18,7 +21,8 @@
 
 
 <script>
-  import MymtgGrid from 'src/common/components/grid/MymtgGrid'
+  import MymtgGrid from 'src/common/components/list/grid/MymtgGrid'
+  import MymtgCrudActions from 'src/common/components/list/actions/MymtgCrudActions'
   import ArtistModel from 'src/modules/cards/artist/models/Artist'
   import pagination from 'src/common/components/list/pagination/Pagination'
   import PaginationModel from 'src/common/components/list/pagination/Model'
@@ -31,7 +35,8 @@
     },
     components: {
       pagination,
-      MymtgGrid
+      MymtgGrid,
+      MymtgCrudActions
     },
     data () {
       return {
