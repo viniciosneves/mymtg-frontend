@@ -1,11 +1,7 @@
 <template>
   <div>
   <topbar></topbar>
-    <div class="container-fluid">
-      <div class="row">
-       <sidebar></sidebar>
-      </div>
-    </div>
+   <sidebar></sidebar>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
              <!-- use router-view element as route outlet -->
           <div class="content">
@@ -35,7 +31,7 @@ export default {
 <style>
 
 .content {
-  margin-left: 60px;
+  margin-left: 20px;
   /*border: 1px solid black;*/
 }
 

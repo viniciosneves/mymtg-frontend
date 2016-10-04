@@ -9,7 +9,7 @@
   <span  class="pagination-item pagination-info">
     <span>Page </span>
     <span class="form-inline">
-      <input @keyup.enter="changePage(currentPage)"
+      <input @blur="onPageBlur" @keyup.enter="changePage(currentPage)"
            class="input-page form-control input-sm"
            type="number" v-model="currentPage" />
     </span>
@@ -35,8 +35,17 @@
     },
     methods: {
       changePage: function (page) {
-        this.currentPage = page
-        this.$emit('change', page)
+        if (this.isValidPage(page)) {
+          this.currentPage = page
+          this.$emit('change', page)
+        }
+      },
+      onPageBlur: function () {
+        this.currentPage = this.isValidPage(this.currentPage) ? this.currentPage : this.model.currentPage
+        this.changePage(this.currentPage)
+      },
+      isValidPage: function (page) {
+        return page >= 1 && page <= this.model.lastPage
       }
     },
     computed: {
@@ -46,8 +55,6 @@
       isLastPage: function () {
         return this.model.lastPage === this.model.currentPage
       }
-    },
-    watch: {
     },
     created: function () {
       this.currentPage = this.model.currentPage

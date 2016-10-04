@@ -1,7 +1,31 @@
 <template>
   <div >
     <h1>Artists</h1>
-    <div> FILTER </div>
+   <!--  <div>  <form>
+    <div class="col-md-6">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Name</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  </div>
+  <div class="col-md-6">
+        <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    </div>
+  </div>
+  <div class="col-md12">
+    <button class="btn btn-default">Search</button>
+  </div>
+</form></div> -->
   <mymtg-grid :data="artists"
               :columns="columns"
               @selectedrow="selected"
@@ -16,7 +40,6 @@
       <pagination slot="pagination" @change="changePage" :model="paginationModel" ></pagination>
 </mymtg-grid>
   </div>
-
 </template>
 
 
@@ -43,7 +66,8 @@
         artists: [],
         paginationModel: new PaginationModel(),
         artistQuery: '',
-        selectedRow: null
+        selectedRow: null,
+        showModal: false
       }
     },
     computed: {
@@ -85,8 +109,6 @@
     }
   }
 </script>
-
-
 
 <style>
   
