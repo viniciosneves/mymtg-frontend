@@ -147,16 +147,15 @@ tr:hover {
   background-color: #FCFFCD
 }
 .grid-container {
-  height: 405px;
+  /*height: 405px;*/
 }
 .selected {
   background-color: #FFFD7C
 }
 .grid-bottom {
   display: flex;
-
 }
 .grid-pagination {
-
+   margin-left: auto;
 }
 </style>

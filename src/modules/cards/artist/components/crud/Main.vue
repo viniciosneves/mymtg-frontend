@@ -1,37 +1,11 @@
 <template>
   <div >
     <h1>Artists</h1>
-   <!--  <div>  <form>
-    <div class="col-md-6">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Name</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  </div>
-  <div class="col-md-6">
-        <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-  </div>
-  <div class="col-md12">
-    <button class="btn btn-default">Search</button>
-  </div>
-</form></div> -->
-  <mymtg-grid :data="artists"
+    <artist-filter  @search="searchArtist" class="col-md-2"></artist-filter>
+  <mymtg-grid class="col-md-10" :data="artists"
               :columns="columns"
-              @selectedrow="selected"
-              @dbclickrow="editArtist">
-
-      <mymtg-crud-actions slot="actions" 
+              @selectedrow="selected">
+      <mymtg-crud-actions slot="actions"
                           :selectedItem="selectedRow"
                           @create="newArtist"
                           @update="editArtist"
@@ -44,6 +18,7 @@
 
 
 <script>
+  import ArtistFilter from './Filter'
   import MymtgGrid from 'src/common/components/list/grid/MymtgGrid'
   import MymtgCrudActions from 'src/common/components/list/actions/MymtgCrudActions'
   import ArtistModel from 'src/modules/cards/artist/models/Artist'
@@ -59,15 +34,15 @@
     components: {
       pagination,
       MymtgGrid,
-      MymtgCrudActions
+      MymtgCrudActions,
+      ArtistFilter
     },
     data () {
       return {
         artists: [],
         paginationModel: new PaginationModel(),
-        artistQuery: '',
         selectedRow: null,
-        showModal: false
+        filter: {}
       }
     },
     computed: {
@@ -81,6 +56,9 @@
       }
     },
     methods: {
+      searchArtist: function (filter) {
+        this.loadArtists(this.paginationModel.currentPage, filter)
+      },
       changePage: function (page) {
         this.loadArtists(page)
       },
@@ -93,8 +71,8 @@
       newArtist: function () {
         this.$router.push({ name: 'createArtist' })
       },
-      loadArtists: function (page = this.paginationModel.currentPage) {
-        this.artistModel.all({ page, per_page: 10, query: this.artistQuery }).then((response) => {
+      loadArtists: function (page = this.paginationModel.currentPage, filter = {}) {
+        this.artistModel.all({ page, per_page: 10, ...filter }).then((response) => {
           this.$data.artists = response.data.data
           this.$data.paginationModel.update(response.data)
         })

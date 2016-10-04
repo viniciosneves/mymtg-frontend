@@ -22,7 +22,7 @@
     Remove
   </button>
 
-  <span class="action-item">
+  <span>
     <slot name="after-actions" ></slot>
   </span>
   <mymtg-confirm :message="removeModal.message" :title="removeModal.title"  :show="removeModal.show"
@@ -52,7 +52,7 @@
       return {
         removeModal: {
           show: false,
-          message: 'Do you really want to remove this item?',
+          message: 'Do you really want to remove it?',
           title: 'Atention'
         }
       }

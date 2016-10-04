@@ -32,6 +32,7 @@ export default {
 
 .content {
   margin-left: 20px;
+  margin-top: -30px;
   /*border: 1px solid black;*/
 }
 
