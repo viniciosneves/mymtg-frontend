@@ -58,7 +58,8 @@
     },
     methods: {
       searchArtist: function (filter) {
-        this.$data.filter = filter
+        this.filter = filter
+        this.paginationModel.currentPage = 1
         this.loadArtists()
       },
       changePage: function (page) {
@@ -69,10 +70,10 @@
         this.selectedRow = row
       },
       editArtist: function () {
-        this.$router.push({ name: 'updateArtist', params: { id: this.selectedRow.id } })
+        this.$router.push({ name: 'cards.artist.update', params: { id: this.selectedRow.id } })
       },
       newArtist: function () {
-        this.$router.push({ name: 'createArtist' })
+        this.$router.push({ name: 'cards.artist.create' })
       },
       loadArtists: function () {
         let page = this.paginationModel.currentPage

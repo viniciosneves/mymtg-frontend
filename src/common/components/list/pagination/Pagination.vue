@@ -56,8 +56,10 @@
         return this.model.lastPage === this.model.currentPage
       }
     },
-    created: function () {
-      this.currentPage = this.model.currentPage
+    watch: {
+      'model.currentPage': function (newVal) {
+        this.currentPage = newVal
+      }
     }
   }
 </script>

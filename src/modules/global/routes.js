@@ -4,12 +4,12 @@ import NotFound from './main/components/NotFound'
 export default [
   {
     path: '/dashbord',
-    name: 'main',
+    name: 'global.main',
     component: Dashbord
   },
   {
     path: '/notfound',
-    name: 'notfound',
+    name: 'global.notfound',
     component: NotFound
     // beforeRouteEnter: function (from, to, next) {
     //   console.log(from, to)

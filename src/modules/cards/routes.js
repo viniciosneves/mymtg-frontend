@@ -10,16 +10,16 @@ export default [
   {
     path: '/cards/artist',
     component: MainArtist,
-    name: 'mainArtist'
+    name: 'cards.artist'
   },
   {
     path: '/cards/artist/create',
     component: ArtistForm,
-    name: 'createArtist'
+    name: 'cards.artist.create'
   },
   {
     path: '/cards/artist/update/:id',
     component: ArtistForm,
-    name: 'updateArtist'
+    name: 'cards.artist.update'
   }
 ]

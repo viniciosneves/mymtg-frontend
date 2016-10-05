@@ -20,7 +20,7 @@ let router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   // do some auth here
-  console.log(to, from)
+  // console.log(to, from)
   return next()
 })
 

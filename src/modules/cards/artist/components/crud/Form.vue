@@ -8,7 +8,7 @@
     <mymtg-field label="Name">
       <input initial="off" class="form-control input-lg" v-model="artist.name" placeholder="Name">
     </mymtg-field>
-    <mymtg-action reset="off" @backed="backed" @submitted="submit"></mymtg-action>
+    <mymtg-action reset="off" @backed="goBack" @submitted="submit"></mymtg-action>
   </form>
 </div>
 
@@ -58,19 +58,19 @@ export default {
         // }
       // })
     },
-    backed: function () {
-      this.$router.push({ name: 'mainArtist' })
+    goBack: function () {
+      this.$router.push({name: 'cards.artist'})
     },
     create: function (artist) {
       this.artistModel.create(this.$data.artist).then(() => {
         toast.success('Artist Created!')
-        this.$router.push({name: 'mainArtist'})
+        this.goBack()
       })
     },
     update: function (artist) {
       this.artistModel.update(this.artist.id, this.$data.artist).then(() => {
         toast.success('Artist Updated!')
-        this.$router.push({name: 'mainArtist'})
+        this.goBack()
       })
     }
   },
@@ -80,7 +80,7 @@ export default {
       this.artistModel.get(this.$route.params.id).then((response) => {
         this.$data.artist = response.data
       }, (response) => {
-        this.$router.push({name: 'mainArtist'})
+        this.goBack()
       })
     }
   }
