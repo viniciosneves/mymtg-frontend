@@ -1,20 +1,28 @@
 <template>
 <div>  
   <form @submit.prevent="search">
+
     <mymtg-field label="Name">
-      <input @keyup.enter="search" class="form-control" v-model="filterModel.name" placeholder="Name">
+      <input @keyup.enter="search"
+             v-model="filterModel.name"
+             class="form-control"
+             placeholder="Name" autofocus />
     </mymtg-field>
-    <div class="filter-actions pull-right">
-      <button class="btn btn-default" @click.prevent="search">Search</button>
-      <button class="btn btn-info" @click.prevent="clean">Clean</button>
-    </div>
+
+    <mymtg-filter-actions class="pull-right"
+     @search="search" 
+     @clean="clean">
+    </mymtg-filter-actions>
+
   </form>
 </div>
 </template>
 
 <script type="text/javascript">
   import MymtgField from 'src/common/components/form/MymtgField'
+  import MymtgFilterActions from 'src/common/components/filter/MymtgFilterActions'
   export default {
+    name: 'ArtistFilter',
     data: function () {
       return {
         filterModel: {
@@ -23,7 +31,8 @@
       }
     },
     components: {
-      MymtgField
+      MymtgField,
+      MymtgFilterActions
     },
     methods: {
       search: function () {
@@ -31,7 +40,7 @@
       },
       clean: function () {
         this.$data.filterModel = {}
-        this.$emit('search', this.$data.filterModel)
+        this.$emit('clean', this.$data.filterModel)
       }
     }
   }
@@ -39,8 +48,4 @@
 
 
 <style type="text/css" scoped>
-
-.filter-actions {
-  margin-top: 10px;
-}
 </style>

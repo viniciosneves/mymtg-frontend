@@ -1,7 +1,7 @@
 <template>
   <div >
     <h1>Artists</h1>
-      <artist-filter  @search="searchArtist" class="col-md-2"></artist-filter>
+      <artist-filter  @search="searchArtist" @clean="searchArtist" class="col-md-2"></artist-filter>
   <mymtg-grid class="col-md-10" :data="artists"
               :columns="columns"
               @selectedrow="selected">

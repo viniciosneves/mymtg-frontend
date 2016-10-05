@@ -83,7 +83,9 @@ export default class Request {
 
     if (!error.response) {
       this._toast.error('No connection with the server!', 'Connection lost')
+      return
     }
+
     let httpStatus = error.response.status
     switch (httpStatus) {
       case 400: {

@@ -10,11 +10,11 @@ export default [
   {
     path: '/notfound',
     name: 'notfound',
-    component: NotFound,
-    beforeRouteEnter: function (from, to, next) {
-      console.log(from, to)
-      next(from, to)
-    }
+    component: NotFound
+    // beforeRouteEnter: function (from, to, next) {
+    //   console.log(from, to)
+    //   next(from, to)
+    // }
   },
   {
     path: '/',
