@@ -1,16 +1,17 @@
 <template>
   <div >
     <h1>Artists</h1>
-    <artist-filter  @search="searchArtist" class="col-md-2"></artist-filter>
+      <artist-filter  @search="searchArtist" class="col-md-2"></artist-filter>
   <mymtg-grid class="col-md-10" :data="artists"
               :columns="columns"
               @selectedrow="selected">
-      <mymtg-crud-actions slot="actions"
-                          :selectedItem="selectedRow"
-                          @create="newArtist"
-                          @update="editArtist"
-                          @remove="deleteArtist">
-      </mymtg-crud-actions>
+
+  <mymtg-crud-actions slot="actions"
+                      :selectedItem="selectedRow"
+                      @create="newArtist"
+                      @update="editArtist"
+                      @remove="deleteArtist">
+  </mymtg-crud-actions>
       <pagination slot="pagination" @change="changePage" :model="paginationModel" ></pagination>
 </mymtg-grid>
   </div>
@@ -57,10 +58,12 @@
     },
     methods: {
       searchArtist: function (filter) {
-        this.loadArtists(this.paginationModel.currentPage, filter)
+        this.$data.filter = filter
+        this.loadArtists()
       },
       changePage: function (page) {
-        this.loadArtists(page)
+        this.paginationModel.currentPage = page
+        this.loadArtists()
       },
       selected: function (row) {
         this.selectedRow = row
@@ -71,8 +74,9 @@
       newArtist: function () {
         this.$router.push({ name: 'createArtist' })
       },
-      loadArtists: function (page = this.paginationModel.currentPage, filter = {}) {
-        this.artistModel.all({ page, per_page: 10, ...filter }).then((response) => {
+      loadArtists: function () {
+        let page = this.paginationModel.currentPage
+        this.artistModel.all({ page, per_page: 10, ...this.$data.filter }).then((response) => {
           this.$data.artists = response.data.data
           this.$data.paginationModel.update(response.data)
         })

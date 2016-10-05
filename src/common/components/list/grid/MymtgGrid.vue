@@ -117,7 +117,6 @@ th.actived {
 th.actived .arrow {
   opacity: 1;
 }
-
 .arrow {
   display: inline-block;
   vertical-align: middle;

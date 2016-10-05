@@ -18,6 +18,12 @@ let router = new VueRouter({
           ...globalRoutes]
 })
 
+router.beforeEach((to, from, next) => {
+  // do some auth here
+  console.log(to, from)
+  return next()
+})
+
 new Vue({
   store: MainStore,
   router,

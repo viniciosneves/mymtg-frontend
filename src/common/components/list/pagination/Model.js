@@ -4,6 +4,10 @@ class Model {
     this._applyConfig(config)
   }
 
+  set currentPage (page) {
+    this._current_page = page
+  }
+
   get currentPage () {
     return this._current_page
   }

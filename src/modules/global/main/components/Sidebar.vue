@@ -3,8 +3,6 @@
         <ul class="nav-sidebar">
           <router-link tag="li" to="/dashbord"><a>Dashbord</a></router-link>
           <router-link tag="li" to="/cards"><a>Cards</a></router-link>
-          <!--   <li><a v-link="{ path: '/about' }">Analytics</a></li>
-            <li><a href="#">Export</a></li> -->
         </ul>        
     </nav>
 </template>

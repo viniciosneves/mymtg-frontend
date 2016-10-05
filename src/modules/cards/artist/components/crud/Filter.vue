@@ -1,28 +1,19 @@
 <template>
-      <div>  <form>
-  <div class="form-group">
-    <label>Name</label>
-    <input type="text" class="form-control" v-model="filterModel.name"  placeholder="Name">
-  </div>
-  <!-- <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-        <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+<div>  
+  <form @submit.prevent="search">
+    <mymtg-field label="Name">
+      <input @keyup.enter="search" class="form-control" v-model="filterModel.name" placeholder="Name">
+    </mymtg-field>
+    <div class="filter-actions pull-right">
+      <button class="btn btn-default" @click.prevent="search">Search</button>
+      <button class="btn btn-info" @click.prevent="clean">Clean</button>
     </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div> -->
-    <button class="btn btn-info" @click.prevent="clean">Clean</button>
-    <button class="btn btn-default" @click.prevent="search">Search</button>
-</form>
+  </form>
 </div>
 </template>
 
 <script type="text/javascript">
+  import MymtgField from 'src/common/components/form/MymtgField'
   export default {
     data: function () {
       return {
@@ -30,6 +21,9 @@
           name: ''
         }
       }
+    },
+    components: {
+      MymtgField
     },
     methods: {
       search: function () {
@@ -44,4 +38,9 @@
 </script>
 
 
-<style type="text/css"></style>
+<style type="text/css" scoped>
+
+.filter-actions {
+  margin-top: 10px;
+}
+</style>
