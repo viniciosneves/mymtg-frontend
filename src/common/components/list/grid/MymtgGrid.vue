@@ -87,7 +87,11 @@ export default {
       if (nameSpace.length === 1) {
         return entry[column.index]
       } else {
-        console.log(entry, nameSpace)
+        let partialValue = entry
+        for (let i = 0; i < nameSpace.length; i++) {
+          partialValue = partialValue[nameSpace[i]]
+        }
+        return partialValue
       }
     },
     selectRow: function (row) {
