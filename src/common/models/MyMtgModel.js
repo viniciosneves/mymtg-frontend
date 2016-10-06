@@ -18,6 +18,10 @@ class MyMtgModel {
     return this._request.get(this._resourceName, query)
   }
 
+  paginate (query = {}) {
+    return this._request.get(this._resourceName, { ...query, paginate: true })
+  }
+
   get (id) {
     if (!id) {
       throw new Error('You need to pass a id to use get of MyMtgModel instance')

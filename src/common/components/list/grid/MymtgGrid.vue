@@ -79,7 +79,16 @@ export default {
       return column.text || column
     },
     getColumnValue: function (entry, column) {
-      return entry[column.index] || entry[column]
+      if (column && !column.index) {
+        return entry[column]
+      }
+      let nameSpace = column.index.split('.')
+
+      if (nameSpace.length === 1) {
+        return entry[column.index]
+      } else {
+        console.log(entry, nameSpace)
+      }
     },
     selectRow: function (row) {
       if (this.isRowSelected(row)) {

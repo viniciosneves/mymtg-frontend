@@ -3,10 +3,10 @@
     <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.artist' }">Artists</router-link>
     <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.block' }">Block</router-link>
     <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.card' }">Card</router-link>
-    <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.color' }">Color</router-link>
+    <!-- <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.color' }">Color</router-link> -->
     <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.edition' }">Edition</router-link>
-    <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.rarety' }">Rarety</router-link>
-    <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.type' }">Type</router-link>
+    <!-- <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.rarety' }">Rarety</router-link> -->
+    <!-- <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.type' }">Type</router-link> -->
   </div>
 </template>
 

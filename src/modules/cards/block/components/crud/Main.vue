@@ -78,7 +78,7 @@
       },
       loadBlocks: function () {
         let page = this.paginationModel.currentPage
-        this.blockModel.all({ page, per_page: 10, ...this.filter }).then((response) => {
+        this.blockModel.paginate({ page, per_page: 10, ...this.filter }).then((response) => {
           this.blocks = response.data.data
           this.paginationModel.update(response.data)
         })

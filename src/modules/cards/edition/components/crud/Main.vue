@@ -1,16 +1,16 @@
 <template>
   <div >
-    <h1>Artists</h1>
-      <artist-filter  @search="searchArtist" @clean="searchArtist" class="col-md-2"></artist-filter>
-  <mymtg-grid class="col-md-10" :data="artists"
+    <h1>Edition</h1>
+      <edition-filter  @search="search" @clean="search" class="col-md-2"></edition-filter>
+  <mymtg-grid class="col-md-10" :data="items"
               :columns="columns"
               @selectedrow="selected">
 
   <mymtg-crud-actions slot="actions"
                       :selectedItem="selectedRow"
-                      @create="newArtist"
-                      @update="editArtist"
-                      @remove="deleteArtist">
+                      @create="create"
+                      @update="edit"
+                      @remove="remove">
   </mymtg-crud-actions>
       <pagination slot="pagination" @change="changePage" :model="paginationModel" ></pagination>
 </mymtg-grid>
@@ -19,28 +19,28 @@
 
 
 <script>
-  import ArtistFilter from './Filter'
+  import EditionFilter from './Filter'
   import MymtgGrid from 'src/common/components/list/grid/MymtgGrid'
   import MymtgCrudActions from 'src/common/components/list/actions/MymtgCrudActions'
-  import ArtistModel from 'src/modules/cards/artist/models/Artist'
+  import EditionModel from 'src/modules/cards/edition/models/Edition'
   import pagination from 'src/common/components/list/pagination/Pagination'
   import PaginationModel from 'src/common/components/list/pagination/Model'
   import { toast } from 'src/common/components/notification/toast/Toast'
   export default {
-    name: 'MymtgArtistMain',
+    name: 'MymtgEditionMain',
     mounted: function () {
-      this.artistModel = new ArtistModel()
-      this.loadArtists()
+      this.model = new EditionModel()
+      this.load()
     },
     components: {
       pagination,
       MymtgGrid,
       MymtgCrudActions,
-      ArtistFilter
+      EditionFilter
     },
     data () {
       return {
-        artists: [],
+        items: [],
         paginationModel: new PaginationModel(),
         selectedRow: null,
         filter: {}
@@ -51,45 +51,49 @@
         return [
           { index: 'id', text: 'Id', id: true },
           { index: 'name', text: 'Name' },
+          { index: 'realese_date', text: 'Release Date' },
+          { index: 'initials', text: 'Initials' },
+          { index: 'cards_amount', text: 'Amount of Cards' },
+          { index: 'block.name', text: 'Block' },
           { index: 'created_at', text: 'Creation date' },
           { index: 'updated_at', text: 'Last Updated' }
         ]
       }
     },
     methods: {
-      searchArtist: function (filter) {
+      search: function (filter) {
         this.filter = filter
         this.paginationModel.currentPage = 1
         this.selectedRow = null
-        this.loadArtists()
+        this.load()
       },
       changePage: function (page) {
         this.paginationModel.currentPage = page
-        this.loadArtists()
+        this.load()
       },
       selected: function (row) {
         this.selectedRow = row
       },
-      editArtist: function () {
-        this.$router.push({ name: 'cards.artist.update', params: { id: this.selectedRow.id } })
+      edit: function () {
+        this.$router.push({ name: 'cards.edition.update', params: { id: this.selectedRow.id } })
       },
-      newArtist: function () {
-        this.$router.push({ name: 'cards.artist.create' })
+      create: function () {
+        this.$router.push({ name: 'cards.edition.create' })
       },
-      loadArtists: function () {
+      load: function () {
         let page = this.paginationModel.currentPage
-        this.artistModel.paginate({ page, per_page: 10, ...this.filter }).then((response) => {
-          this.$data.artists = response.data.data
-          this.$data.paginationModel.update(response.data)
+        this.model.paginate({ page, per_page: 10, ...this.filter }).then((response) => {
+          this.items = response.data.data
+          this.paginationModel.update(response.data)
         })
       },
-      deleteArtist: function () {
-        this.artistModel.delete(this.selectedRow.id).then(this.deleted)
+      remove: function () {
+        this.model.delete(this.selectedRow.id).then(this.deleted)
       },
       deleted: function (response) {
-        toast.success('Artist removed!')
+        toast.success('Edition removed!')
         this.selectedRow = null
-        this.loadArtists()
+        this.load()
       }
     }
   }
