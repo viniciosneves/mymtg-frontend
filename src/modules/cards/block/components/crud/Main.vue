@@ -1,16 +1,16 @@
 <template>
   <div >
-    <h1>Artists</h1>
-      <artist-filter  @search="searchArtist" @clean="searchArtist" class="col-md-2"></artist-filter>
-  <mymtg-grid class="col-md-10" :data="artists"
+    <h1>Block</h1>
+      <block-filter  @search="searchBlock" @clean="searchBlock" class="col-md-2"></block-filter>
+  <mymtg-grid class="col-md-10" :data="blocks"
               :columns="columns"
               @selectedrow="selected">
 
   <mymtg-crud-actions slot="actions"
                       :selectedItem="selectedRow"
-                      @create="newArtist"
-                      @update="editArtist"
-                      @remove="deleteArtist">
+                      @create="newBlock"
+                      @update="editBlock"
+                      @remove="deleteBlock">
   </mymtg-crud-actions>
       <pagination slot="pagination" @change="changePage" :model="paginationModel" ></pagination>
 </mymtg-grid>
@@ -19,28 +19,28 @@
 
 
 <script>
-  import ArtistFilter from './Filter'
+  import BlockFilter from './Filter'
   import MymtgGrid from 'src/common/components/list/grid/MymtgGrid'
   import MymtgCrudActions from 'src/common/components/list/actions/MymtgCrudActions'
-  import ArtistModel from 'src/modules/cards/artist/models/Artist'
+  import BlockModel from 'src/modules/cards/block/models/Block'
   import pagination from 'src/common/components/list/pagination/Pagination'
   import PaginationModel from 'src/common/components/list/pagination/Model'
   import { toast } from 'src/common/components/notification/toast/Toast'
   export default {
-    name: 'MymtgArtistMain',
+    name: 'MymtgBlockMain',
     mounted: function () {
-      this.artistModel = new ArtistModel()
-      this.loadArtists()
+      this.blockModel = new BlockModel()
+      this.loadBlocks()
     },
     components: {
       pagination,
       MymtgGrid,
       MymtgCrudActions,
-      ArtistFilter
+      BlockFilter
     },
     data () {
       return {
-        artists: [],
+        blocks: [],
         paginationModel: new PaginationModel(),
         selectedRow: null,
         filter: {}
@@ -57,39 +57,39 @@
       }
     },
     methods: {
-      searchArtist: function (filter) {
+      searchBlock: function (filter) {
         this.filter = filter
         this.paginationModel.currentPage = 1
         this.selectedRow = null
-        this.loadArtists()
+        this.loadBlocks()
       },
       changePage: function (page) {
         this.paginationModel.currentPage = page
-        this.loadArtists()
+        this.loadBlocks()
       },
       selected: function (row) {
         this.selectedRow = row
       },
-      editArtist: function () {
-        this.$router.push({ name: 'cards.artist.update', params: { id: this.selectedRow.id } })
+      editBlock: function () {
+        this.$router.push({ name: 'cards.block.update', params: { id: this.selectedRow.id } })
       },
-      newArtist: function () {
-        this.$router.push({ name: 'cards.artist.create' })
+      newBlock: function () {
+        this.$router.push({ name: 'cards.block.create' })
       },
-      loadArtists: function () {
+      loadBlocks: function () {
         let page = this.paginationModel.currentPage
-        this.artistModel.all({ page, per_page: 10, ...this.filter }).then((response) => {
-          this.$data.artists = response.data.data
-          this.$data.paginationModel.update(response.data)
+        this.blockModel.all({ page, per_page: 10, ...this.filter }).then((response) => {
+          this.blocks = response.data.data
+          this.paginationModel.update(response.data)
         })
       },
-      deleteArtist: function () {
-        this.artistModel.delete(this.selectedRow.id).then(this.deleted)
+      deleteBlock: function () {
+        this.blockModel.delete(this.selectedRow.id).then(this.deleted)
       },
       deleted: function (response) {
-        toast.success('Artist removed!')
+        toast.success('Block removed!')
         this.selectedRow = null
-        this.loadArtists()
+        this.loadBlocks()
       }
     }
   }
