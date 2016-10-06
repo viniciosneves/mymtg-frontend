@@ -17,7 +17,7 @@
     },
     methods: {
       routeToMain: function () {
-        this.$router.push({ name: 'main' })
+        this.$router.push({ name: 'global.main' })
       }
     }
   }
