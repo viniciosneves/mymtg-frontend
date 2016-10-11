@@ -1,13 +1,27 @@
-import Dashbord from './dashbord/components/Main'
-import NotFound from './common/components/NotFound'
+import Dashbord from './main/components/Dashbord'
+import NotFound from './main/components/NotFound'
 
-export default {
-  '/dashbord': {
-    name: 'main',
+export default [
+  {
+    path: '/dashbord',
+    name: 'global.main',
     component: Dashbord
   },
-  '/notfound': {
-    name: 'notfound',
+  {
+    path: '/notfound',
+    name: 'global.notfound',
     component: NotFound
+    // beforeRouteEnter: function (from, to, next) {
+    //   console.log(from, to)
+    //   next(from, to)
+    // }
+  },
+  {
+    path: '/',
+    redirect: '/dashbord'
+  },
+  {
+    path: '*',
+    redirect: '/notfound'
   }
-}
+]

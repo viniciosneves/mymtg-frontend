@@ -1,18 +1,18 @@
 <template>
   <div class='menu'>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/artist' }">Artists</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/block' }">Block</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/card' }">Card</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/color' }">Color</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/edition' }">Edition</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/rarety' }">Rarety</button>
-    <button class="btn btn-lg btn-primary" v-link="{ path: '/cards/type' }">Type</button>
+    <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.artist' }">Artists</router-link>
+    <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.block' }">Block</router-link>
+    <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.card' }">Card</router-link>
+    <!-- <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.color' }">Color</router-link> -->
+    <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.edition' }">Edition</router-link>
+    <!-- <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.rarety' }">Rarety</router-link> -->
+    <!-- <router-link class="btn btn-lg btn-primary" :to="{ name: 'cards.type' }">Type</router-link> -->
   </div>
 </template>
 
-<script>
+<script type="text/javascript">
 export default {
-
+  name: 'MymtgMainMenu'
 }
 </script>
 

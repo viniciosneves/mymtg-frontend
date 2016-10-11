@@ -1,42 +1,32 @@
 import Vue from 'vue'
-import App from './App'
 import VueRouter from 'vue-router'
-import vueResource from 'vue-resource'
+import MainStore from 'src/common/store/MainStore'
+import App from './modules/global/main/components/App'
+
+import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
+import './common/directives/Directives'
+// import './common/validators/Validators'
+
 import cardRoutes from './modules/cards/routes'
 import globalRoutes from './modules/global/routes'
-import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
-// import './assets/sass/Main.scss'
-// import 'jquery/dist/jquery.js'
-import 'vue-toast/dist/vue-toast.min.css'
-import './common/directives/Directives'
-import VueValidator from 'vue-validator'
 
-Vue.use(VueValidator)
 Vue.use(VueRouter)
-Vue.use(vueResource)
-/* eslint-disable no-new */
-// new Vue({
-//   el: 'body',
-//   components: { App }
-// })
 
 let router = new VueRouter({
-  hashbang: false,
-  history: true,
-  linkActiveClass: 'active'
+  mode: 'history',
+  routes: [...cardRoutes,
+          ...globalRoutes]
 })
 
-/* Route Map */
-router.map(Object.assign(globalRoutes,
-                          cardRoutes))
-
-/* Route Redirects */
-router.redirect({
-  '/': '/dashbord',
-  '*': '/notfound'
+router.beforeEach((to, from, next) => {
+  // do some auth here
+  // console.log(to, from)
+  return next()
 })
 
-/* Bootstrap routes to the main component */
-router.start({
-  components: { App }
-}, 'body')
+new Vue({
+  store: MainStore,
+  router,
+  el: '#app',
+  render: h => h(App)
+})
