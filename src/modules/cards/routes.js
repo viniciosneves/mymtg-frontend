@@ -5,6 +5,8 @@ import MainBlock from './block/components/crud/Main'
 import BlockForm from './block/components/crud/Form'
 import MainEdition from './edition/components/crud/Main'
 import EditionForm from './edition/components/crud/Form'
+import MainCard from './card/components/crud/Main'
+import CardForm from './card/components/crud/Form'
 
 let artistRoutes = [
   {
@@ -60,6 +62,24 @@ let editionRoutes = [
   }
 ]
 
+let cardRoutes = [
+  {
+    path: '/cards/card',
+    component: MainCard,
+    name: 'cards.card'
+  },
+  {
+    path: '/cards/card/create',
+    component: CardForm,
+    name: 'cards.card.create'
+  },
+  {
+    path: '/cards/card/update/:id',
+    component: CardForm,
+    name: 'cards.card.update'
+  }
+]
+
 export default [
   {
     path: '/cards',
@@ -67,5 +87,6 @@ export default [
   },
   ...artistRoutes,
   ...blockRoutes,
-  ...editionRoutes
+  ...editionRoutes,
+  ...cardRoutes
 ]
