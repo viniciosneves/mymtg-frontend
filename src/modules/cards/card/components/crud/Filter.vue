@@ -9,7 +9,7 @@
     </mymtg-field>
 
     <mymtg-field label="Type">
-      
+      <mymtg-type-combo></mymtg-type-combo>
     </mymtg-field>
 
      <mymtg-field label="Colors">
@@ -36,6 +36,7 @@
 <script type="text/javascript">
   import MymtgField from 'src/common/components/form/MymtgField'
   import MymtgFilterActions from 'src/common/components/filter/MymtgFilterActions'
+  import MymtgTypeCombo from 'src/modules/cards/type/components/combobox/MymtgTypeCombo'
   import CardFilter from 'src/modules/cards/card/models/CardFilter'
   export default {
     name: 'CardFilter',
@@ -46,7 +47,8 @@
     },
     components: {
       MymtgField,
-      MymtgFilterActions
+      MymtgFilterActions,
+      MymtgTypeCombo
     },
     methods: {
       search: function () {
