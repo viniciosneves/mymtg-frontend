@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Topbar from 'src/modules/global/main/components/Topbar'
+import Topbar from 'global/main/components/Topbar'
 
 describe('Topbar.vue', () => {
   it('should render correct contents', () => {
