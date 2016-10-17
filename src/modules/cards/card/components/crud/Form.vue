@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import BlockModel from 'src/modules/cards/block/models/Block'
+import BlockModel from 'src/modules/cards/block/models/BlockService'
 import MymtgField from 'src/common/components/form/MymtgField'
 import MymtgAction from 'src/common/components/form/MymtgAction'
 import { toast } from 'src/common/components/notification/toast/Toast'

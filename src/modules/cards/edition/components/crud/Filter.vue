@@ -30,10 +30,11 @@
     </mymtg-field>
 
     <mymtg-field label="Block">
-      <select v-model="filterModel.block_id" class="form-control">
+      <mymtg-block-combo :selected="filterModel.block_id" @select="selectBlock" ></mymtg-block-combo>
+      <!-- select v-model="filterModel.block_id" class="form-control">
         <option value="0" >All</option>
         <option v-for="block in blocks" :value="block.id"  >{{ block.name }}</option>
-      </select>  
+      </select>   -->
     </mymtg-field>
 
     <mymtg-filter-actions class="pull-right"
@@ -46,9 +47,10 @@
 </template>
 
 <script type="text/javascript">
-  import MymtgField from 'src/common/components/form/MymtgField'
-  import MymtgFilterActions from 'src/common/components/filter/MymtgFilterActions'
-  import BlockModel from 'src/modules/cards/block/models/Block'
+  import MymtgBlockCombo from 'cards/block/components/combobox/MymtgBlockCombo'
+  import MymtgField from 'components/form/MymtgField'
+  import MymtgFilterActions from 'components/filter/MymtgFilterActions'
+  import BlockModel from 'cards/block/models/BlockService'
   export default {
     name: 'EditionFilter',
     data: function () {
@@ -60,17 +62,22 @@
           release_date: null,
           initials: null,
           cards_amount: null,
-          block_id: 0
+          block_id: 6
         }
       }
     },
     components: {
       MymtgField,
-      MymtgFilterActions
+      MymtgFilterActions,
+      MymtgBlockCombo
     },
     methods: {
       search: function () {
         this.$emit('search', this.filterModel)
+      },
+      selectBlock: function (blockId) {
+        console.log(blockId)
+        this.filterModel.block_id = blockId
       },
       clean: function () {
         this.filterModel = {

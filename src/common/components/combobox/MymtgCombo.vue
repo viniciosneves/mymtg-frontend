@@ -1,6 +1,7 @@
 <template>
 <div>
   <select v-model="selectedItem" @change="selectItem" class="form-control mymtg-select">
+    <option v-if="showDefaultOption" :value="defaultValue">{{ defaultText }}</option>
     <option v-for="entry in data" :value="entry.value"  >{{ entry.text }}</option>
   </select>  
 </div>
@@ -10,23 +11,28 @@
 <script type="text/javascript">
 export default {
   name: 'MymtgCombo',
-  mounted: function () {
-    if (this.selected != null) {
-      this.selectedItem = this.selected
-    }
-  },
   props: {
     data: {
       required: true
     },
-    selected: {
-      type: Object,
-      default: null
+    selected: {},
+    defaultValue: {
+      default: 0
+    },
+    defaultText: {
+      default: 'Select'
+    },
+    showDefaultOption: {
+      default: true
     }
   },
   data: function () {
     return {
-      selectedItem: null
+    }
+  },
+  computed: {
+    selectedItem: function () {
+      return this.selected
     }
   },
   methods: {

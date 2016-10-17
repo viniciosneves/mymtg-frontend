@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import BlockModel from 'src/modules/cards/block/models/Block'
-import MymtgField from 'src/common/components/form/MymtgField'
-import MymtgAction from 'src/common/components/form/MymtgAction'
-import { toast } from 'src/common/components/notification/toast/Toast'
+import BlockModel from 'cards/block/models/BlockService'
+import MymtgField from 'components/form/MymtgField'
+import MymtgAction from 'components/form/MymtgAction'
+import { toast } from 'components/notification/toast/Toast'
 export default {
   name: 'MymtgBlockForm',
   props: {

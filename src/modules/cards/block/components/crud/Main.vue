@@ -22,7 +22,7 @@
   import BlockFilter from './Filter'
   import MymtgGrid from 'src/common/components/list/grid/MymtgGrid'
   import MymtgCrudActions from 'src/common/components/list/actions/MymtgCrudActions'
-  import BlockModel from 'src/modules/cards/block/models/Block'
+  import BlockModel from 'src/modules/cards/block/models/BlockService'
   import pagination from 'src/common/components/list/pagination/Pagination'
   import PaginationModel from 'src/common/components/list/pagination/Model'
   import { toast } from 'src/common/components/notification/toast/Toast'
