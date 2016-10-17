@@ -76,7 +76,6 @@
         this.$emit('search', this.filterModel)
       },
       selectBlock: function (blockId) {
-        console.log(blockId)
         this.filterModel.block_id = blockId
       },
       clean: function () {
