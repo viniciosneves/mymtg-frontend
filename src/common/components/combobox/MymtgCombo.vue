@@ -11,11 +11,16 @@
 <script type="text/javascript">
 export default {
   name: 'MymtgCombo',
+  created: function () {
+    this.selectedItem = this.selected
+  },
   props: {
     data: {
       required: true
     },
-    selected: {},
+    selected: {
+      default: 0
+    },
     defaultValue: {
       default: 0
     },
@@ -28,16 +33,23 @@ export default {
   },
   data: function () {
     return {
+      selectedItem: null
     }
   },
   computed: {
-    selectedItem: function () {
-      return this.selected
+    other: function () {
     }
   },
   methods: {
     selectItem: function (e) {
+      console.log(new Date(), 'omanaias')
       this.$emit('select', this.selectedItem)
+    }
+  },
+  watch: {
+    selected: function (newVal) {
+      console.log(new Date(), 'arroz de omanaias')
+      this.selectedItem = newVal
     }
   }
 }

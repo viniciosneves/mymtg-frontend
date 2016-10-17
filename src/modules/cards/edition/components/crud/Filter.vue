@@ -37,6 +37,8 @@
       </select>   -->
     </mymtg-field>
 
+    <!-- <mymtg-combo :data="[{ value:1, text: 'Omanaias' }]" ></mymtg-combo> -->
+
     <mymtg-filter-actions class="pull-right"
      @search="search" 
      @clean="clean">
@@ -47,6 +49,7 @@
 </template>
 
 <script type="text/javascript">
+  import MymtgCombo from 'components/combobox/MymtgCombo'
   import MymtgBlockCombo from 'cards/block/components/combobox/MymtgBlockCombo'
   import MymtgField from 'components/form/MymtgField'
   import MymtgFilterActions from 'components/filter/MymtgFilterActions'
@@ -62,14 +65,15 @@
           release_date: null,
           initials: null,
           cards_amount: null,
-          block_id: 6
+          block_id: 0
         }
       }
     },
     components: {
       MymtgField,
       MymtgFilterActions,
-      MymtgBlockCombo
+      MymtgBlockCombo,
+      MymtgCombo
     },
     methods: {
       search: function () {
