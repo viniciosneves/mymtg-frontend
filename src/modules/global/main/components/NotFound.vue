@@ -1,8 +1,9 @@
 <template>
-<div>
-  <h1>Sorry, the page you are trying to access do not exists</h1>
+<div class="notfound">
+  <h1 class="notfound-title" >{{ title }}</h1>
   <br>
-  <button class="btn btn-info" @click="routeToMain" >Back to Main</button>
+  <slot></slot>
+  <button class="notfound-back-button btn btn-info" @click="routeToMain" >{{ buttonText }}</button>
 </div>
 </template>
 
@@ -14,6 +15,20 @@
     name: 'MymtgNotFound',
     created: function () {
 
+    },
+    props: {
+      buttonText: {
+        type: String,
+        default: 'Back to Main'
+      },
+      title: {
+        type: String,
+        default: 'Sorry, the page you are trying to access do not exists'
+      }
+    },
+    data: function () {
+      return {
+      }
     },
     methods: {
       routeToMain: function () {

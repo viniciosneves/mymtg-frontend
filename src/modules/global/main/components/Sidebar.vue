@@ -1,15 +1,26 @@
 <template>
     <nav class="col-sm-3 col-md-2 sidebar">
         <ul class="nav-sidebar">
-          <router-link tag="li" to="/dashbord"><a>Dashbord</a></router-link>
-          <router-link tag="li" to="/cards"><a>Cards</a></router-link>
+          <router-link v-for="link in links" tag="li" :to="link.to"><a>{{ link.name }}</a></router-link>
         </ul>        
     </nav>
 </template>
 
 <script>
+import RouterLink from 'vue-router'
 export default {
-  name: 'MymtgSidebar'
+  name: 'MymtgSidebar',
+  components: {
+    RouterLink
+  },
+  data: function () {
+    return {
+      links: [
+        { name: 'Dashbord', to: '/dashbord' },
+        { name: 'Cards', to: '/cards' }
+      ]
+    }
+  }
 }
 </script>
 

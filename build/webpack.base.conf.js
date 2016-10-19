@@ -16,9 +16,19 @@ module.exports = {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
+      'vue': 'vue/dist/vue.common.js',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+
+      // COMMON
+      'common': path.resolve(__dirname, '../src/common'),
+      'components': path.resolve(__dirname, '../src/common/components'),
+      'http': path.resolve(__dirname, '../src/common/http'),
+      'models': path.resolve(__dirname, '../src/common/models'),
+
+      // MODULES
+      'global': path.resolve(__dirname, '../src/modules/global'),
+      'cards': path.resolve(__dirname, '../src/modules/cards')
     }
   },
   resolveLoader: {
@@ -80,6 +90,11 @@ module.exports = {
     formatter: require('eslint-friendly-formatter')
   },
   vue: {
-    loaders: utils.cssLoaders()
+    loaders: utils.cssLoaders(),
+    postcss: [
+      require('autoprefixer')({
+        browsers: ['last 2 versions']
+      })
+    ]
   }
 }

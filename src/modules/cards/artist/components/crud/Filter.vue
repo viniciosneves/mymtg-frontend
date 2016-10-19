@@ -19,8 +19,8 @@
 </template>
 
 <script type="text/javascript">
-  import MymtgField from 'src/common/components/form/MymtgField'
-  import MymtgFilterActions from 'src/common/components/filter/MymtgFilterActions'
+  import MymtgField from 'components/form/MymtgField'
+  import MymtgFilterActions from 'components/filter/MymtgFilterActions'
   export default {
     name: 'ArtistFilter',
     data: function () {

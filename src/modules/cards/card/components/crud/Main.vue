@@ -1,16 +1,16 @@
 <template>
   <div >
-    <h1>Block</h1>
-      <block-filter  @search="searchBlock" @clean="searchBlock" class="col-md-2"></block-filter>
-  <mymtg-grid class="col-md-10" :data="blocks"
+    <h1>Card</h1>
+      <card-filter  @search="search" @clean="search" class="col-md-2"></card-filter>
+  <mymtg-grid class="col-md-10" :data="items"
               :columns="columns"
               @selectedrow="selected">
 
   <mymtg-crud-actions slot="actions"
                       :selectedItem="selectedRow"
-                      @create="newBlock"
-                      @update="editBlock"
-                      @remove="deleteBlock">
+                      @create="create"
+                      @update="edit"
+                      @remove="remove">
   </mymtg-crud-actions>
       <pagination slot="pagination" @change="changePage" :model="paginationModel" ></pagination>
 </mymtg-grid>
@@ -19,28 +19,28 @@
 
 
 <script>
-  import BlockFilter from './Filter'
+  import CardFilter from './Filter'
   import MymtgGrid from 'src/common/components/list/grid/MymtgGrid'
   import MymtgCrudActions from 'src/common/components/list/actions/MymtgCrudActions'
-  import BlockModel from 'src/modules/cards/block/models/BlockService'
+  import CardService from 'src/modules/cards/card/models/CardService'
   import pagination from 'src/common/components/list/pagination/Pagination'
   import PaginationModel from 'src/common/components/list/pagination/Model'
   import { toast } from 'src/common/components/notification/toast/Toast'
   export default {
-    name: 'MymtgBlockMain',
+    name: 'MymtgEditionMain',
     mounted: function () {
-      this.blockModel = new BlockModel()
-      this.loadBlocks()
+      this.model = new CardService()
+      this.load()
     },
     components: {
       pagination,
       MymtgGrid,
       MymtgCrudActions,
-      BlockFilter
+      CardFilter
     },
     data () {
       return {
-        blocks: [],
+        items: [],
         paginationModel: new PaginationModel(),
         selectedRow: null,
         filter: {}
@@ -57,39 +57,39 @@
       }
     },
     methods: {
-      searchBlock: function (filter) {
+      search: function (filter) {
         this.filter = filter
         this.paginationModel.currentPage = 1
         this.selectedRow = null
-        this.loadBlocks()
+        this.load()
       },
       changePage: function (page) {
         this.paginationModel.currentPage = page
-        this.loadBlocks()
+        this.load()
       },
       selected: function (row) {
         this.selectedRow = row
       },
-      editBlock: function () {
-        this.$router.push({ name: 'cards.block.update', params: { id: this.selectedRow.id } })
+      edit: function () {
+        this.$router.push({ name: 'cards.card.update', params: { id: this.selectedRow.id } })
       },
-      newBlock: function () {
-        this.$router.push({ name: 'cards.block.create' })
+      create: function () {
+        this.$router.push({ name: 'cards.card.create' })
       },
-      loadBlocks: function () {
+      load: function () {
         let page = this.paginationModel.currentPage
-        this.blockModel.paginate({ page, per_page: 10, ...this.filter }).then((response) => {
-          this.blocks = response.data.data
+        this.model.paginate({ page, per_page: 10, ...this.filter }).then((response) => {
+          this.items = response.data.data
           this.paginationModel.update(response.data)
         })
       },
-      deleteBlock: function () {
-        this.blockModel.delete(this.selectedRow.id).then(this.deleted)
+      remove: function () {
+        this.model.delete(this.selectedRow.id).then(this.deleted)
       },
       deleted: function (response) {
-        toast.success('Block removed!')
+        toast.success('Card removed!')
         this.selectedRow = null
-        this.loadBlocks()
+        this.load()
       }
     }
   }

@@ -1,10 +1,10 @@
 import MyMtgModel from 'src/common/models/MyMtgModel'
 
-class Block extends MyMtgModel {
+class CardService extends MyMtgModel {
 
   defineResourceName () {
-    return 'block'
+    return 'card'
   }
 }
 
-export default Block
+export default CardService
